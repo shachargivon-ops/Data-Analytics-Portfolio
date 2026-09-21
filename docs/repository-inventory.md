@@ -55,3 +55,7 @@ One original notebook chart is extracted unchanged into assets for convenient re
 - Assets: two unmodified saved NFL notebook charts.
 
 These additions supersede the baseline missing-file status above. Source files were copied without byte changes. No existing analysis was moved, renamed or deleted.
+
+## Current Power BI file and Python inputs
+
+The supplied direct `.pbix` is now the primary report download. Its definitions contain seven pages and 21 referenced measures. The earlier archive is retained but is not the current report. The two XLSX files belong to the Python project as input data and a dictionary; they are not evidence of Excel processing or analysis skills.

@@ -18,7 +18,7 @@ The separate dictionary explains 31 fields in Hebrew and English. It predates th
 
 ## Tools
 
-Python, pandas, NumPy, Matplotlib and Seaborn; Excel workbooks provide input data and documentation. The notebook imports pyodbc and pandasql but does not demonstrate a database connection or SQL execution. SQL Server/pyodbc are demonstrated in the separate [Northwind project](../northwind-analysis/README.md).
+Python, pandas, NumPy, Matplotlib and Seaborn. The XLSX files provide input data and a data dictionary for this Python project; they do not demonstrate processing or analysis in Excel. The notebook imports pyodbc and pandasql but does not demonstrate a database connection or SQL execution. SQL Server/pyodbc are demonstrated in the separate [Northwind project](../northwind-analysis/README.md).
 
 ## Data Preparation
 

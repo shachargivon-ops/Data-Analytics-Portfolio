@@ -30,7 +30,7 @@ These findings are documented without changing analytical logic. No employer ach
 - A formula-based Excel analysis, if you want to demonstrate skills beyond structured data and documentation.
 - Database provenance/import instructions and environment/package versions for reproducible runs.
 
-Power BI report definitions and Excel structure are now inspected. DAX expressions remain unverified. Languages are listed as supplied: Hebrew (Native), English and German (A1), without an invented English proficiency level.
+Power BI report definitions and Python input files are now inspected. The XLSX files support the Python project only and do not demonstrate Excel processing or analysis skills. Excel remains a user-stated skill. DAX expressions remain unverified. Languages are listed as supplied: Hebrew (Native), English and German (A1), without an invented English proficiency level.
 
 ## Changes and validation
 
@@ -44,4 +44,4 @@ The separate portfolio website repository was not modified in this change.
 
 ## Supplied-file follow-up
 
-The NFL guide records mixed-DataFrame period filters, narrative/output mismatches, a normalized-score benchmark issue and contract-estimate limitations. Two saved charts and selected output-backed observations are now presented. Excel contains static summaries, not demonstrated formula calculations. The Power BI guide distinguishes verified report configuration from unverified model expressions and report values.
+The NFL guide records mixed-DataFrame period filters, narrative/output mismatches, a normalized-score benchmark issue and contract-estimate limitations. Two saved charts and selected output-backed observations are now presented. The XLSX dataset and dictionary are Python project inputs and documentation, not a separate Excel project. The Power BI guide distinguishes verified report configuration from unverified model expressions and report values.

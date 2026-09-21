@@ -1,8 +1,8 @@
 # Power BI – Superstore Analysis
 
-[Portfolio](../../README.md) · [Download original report archive](Project%204%20Analyze%20Data%20with%20Power%20BI%20Superstore%20%28Shachar%20Givon%29.pbix.zip) · [Inspect report structure](report-structure.json)
+[Portfolio](../../README.md) · [Download Power BI report](Project%204%20Analyze%20Data%20with%20Power%20BI%20Superstore%20%28Shachar%20Givon%29.pbix) · [Inspect report structure](report-structure.json)
 
-**Deliverable:** an eight-page Power BI report package with sales, customer, product, regional, return, shipping and growth views.
+**Deliverable:** a seven-page Power BI report package with sales, customer, product, regional, return, shipping and growth views.
 
 ## Business / Research Question
 
@@ -35,7 +35,7 @@ The package separates subject areas in its model diagram. The actual Power Query
 
 ## Key Metrics
 
-Verified measure references include `Total_Sales`, `Total_Profit`, `Profit_Margin_%`, `Average_Order_Value`, `Count_Orders`, `Return_Rate_%`, `Average_Shipping_Days` and `Sales_YoY_%`. Their names indicate intended reporting topics; formulas, denominators, numeric values and correctness remain unverified. The extracted structure records all 26 referenced measure names.
+Verified measure references include `Total_Sales`, `Total_Profit`, `Profit_Margin_%`, `Average_Order_Value`, `Count_Orders`, `Return_Rate_%`, `Average_Shipping_Days` and `Sales_YoY_%`. Their names indicate intended reporting topics; formulas, denominators, numeric values and correctness remain unverified. The extracted structure records all 21 referenced measure names.
 
 ## Key Insights
 
@@ -51,6 +51,6 @@ Multi-page Power BI report construction, visual field bindings, slicer configura
 
 ## Opening the File
 
-The supplied `.pbix.zip` is the Power BI package itself: its root contains `DataModel` and `Report`, rather than a nested `.pbix`. Download it, make a local copy and remove the final `.zip` extension so the copy ends in `.pbix`, then open it with a compatible Power BI Desktop version. This opening step has not been tested here; the uploaded original bytes are preserved.
+Download the linked `.pbix` file and open it directly in a compatible Power BI Desktop version. This file supersedes the earlier `.pbix.zip` for portfolio review. The earlier archive is retained to preserve existing files and links. The direct PBIX has seven report pages; the extra `Page 1` from the archive is absent. The file has not been opened in Power BI Desktop during this review.
 
 For deeper review, provide a report PDF/screenshots and a PBIP/TMDL or measure export with source/refresh information. No analytical model or report logic was changed.
