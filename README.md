@@ -1,50 +1,62 @@
 # Shachar Givon | Data Analytics Portfolio
 
-**Career changer targeting Junior Data Analyst and Data/BI Analyst roles in Germany**  
-**SQL · Python · Power BI · Excel**
+**Target roles: Junior Data Analyst / Data & BI Analyst · Germany**
 
-I bring 10+ years of experience in training, program coordination, team management and stakeholder communication. I am transitioning into data analytics, combining that professional background with practical analytical projects.
+I am transitioning into data analytics after 10+ years in education, training, program coordination, team management, content development and stakeholder communication. I bring experience explaining complex information, coordinating people and understanding stakeholder needs, alongside practical work in SQL and Python.
 
-My previous work gives me a foundation for understanding stakeholder needs, coordinating work and explaining information clearly. I want to apply those strengths to data analysis and reporting that help teams make informed decisions.
+My focus is on turning analytical questions into clear queries, structured data and understandable reports. The work below consists of portfolio projects and learning exercises, separate from my professional employment experience.
 
-## Explore the portfolio
+## Technical Skills
 
-Start with the **WideWorldImporters SQL analysis** for business reporting, then explore the **NFL database** for relational design. Each guide explains the purpose, available evidence and current limitations.
-
-| Featured project | Focus | Explore | Available evidence |
-| --- | --- | --- | --- |
-| **SQL / WideWorldImporters** | Sales trends, customer rankings, product sales and customer activity | [Project guide](docs/projects/wideworldimporters.md) · [SQL script](SQLQuery1%20%20Project%202%20%20SQL%20Data%20Analysis%20%28Shachar%20Givon%29.sql) | Ten numbered SQL exercises |
-| **NFL database** | Organizing player, team, season, passing and sack statistics | [Project guide](docs/projects/nfl-database.md) · [SQL script](Project%201%20%E2%80%93%20Table%20Design%20%26%20Cretaion%20%28Shachar%20Givon%29.sql) | Table definitions, keys and data-loading queries |
-| **NFL Python analysis** | Quarterback performance exploration | [Project overview and status](docs/projects/nfl-python.md) | Described on my portfolio website; notebook and dataset are not yet included here |
-| **Power BI / Superstore** | Power BI portfolio project | [Project status](docs/projects/power-bi-superstore.md) | Report file and supporting documentation are not yet included here |
-
-**Additional Python sample:** [Northwind SQL-to-Python analysis](docs/projects/northwind-python.md) — a Jupyter notebook using SQL queries, pandas, seaborn and Matplotlib.
-
-## Technical focus
-
-| Tool | Evidence and scope |
+| Area | Tools and capabilities |
 | --- | --- |
-| **SQL / SQL Server** | Joins, aggregations, CTEs, window functions, ranking, pivoting, table creation and primary/foreign keys in the two SQL projects |
-| **Python** | SQL Server access with pyodbc, pandas DataFrames and charts with seaborn and Matplotlib in the Northwind notebook |
-| **Power BI** | Superstore project identified for this portfolio; report evidence is pending publication |
-| **Excel** | Part of my stated analytical toolkit; no Excel workbook is currently included for review |
+| Databases and analysis | SQL / Microsoft SQL Server; JOINs, CTEs, aggregations, window functions, relational table design |
+| Python analysis | Python, pandas, pyodbc, Matplotlib, Seaborn |
+| Business intelligence | Power BI, DAX |
+| Spreadsheets | Excel |
 
-## What I bring to an analyst team
+SQL and Python capabilities are demonstrated in the linked source files. Power BI, DAX and Excel are part of my stated stack; supporting report and workbook files have not yet been shared.
 
-- **Training:** experience explaining information and supporting others' understanding.
-- **Program coordination:** experience organizing work and coordinating activities.
-- **Team management:** experience working with people and shared priorities.
-- **Stakeholder communication:** experience discussing needs and keeping people informed.
+## Featured Projects
 
-These are transferable professional strengths. The projects above provide the technical evidence for my move into analytics.
+| Project | Question and demonstrated skills | Inspect |
+| --- | --- | --- |
+| **SQL Business Analysis – WideWorldImporters** | Sales trends, customer and product analysis, and rule-based churn detection; ten exercises using CTEs, JOINs, aggregations, LAG, RANK, ROW_NUMBER, PIVOT, ROLLUP and STRING_AGG | [Project guide](sql/wideworldimporters-analysis/README.md) · [SQL](SQLQuery1%20%20Project%202%20%20SQL%20Data%20Analysis%20%28Shachar%20Givon%29.sql) |
+| **NFL Quarterback Database – SQL Server** | Structure NFL passing data for player, team and season comparisons; database/table creation, keys, relational concepts and data-loading queries | [Project guide](sql/nfl-database/README.md) · [SQL](Project%201%20%E2%80%93%20Table%20Design%20%26%20Cretaion%20%28Shachar%20Givon%29.sql) |
+| **Northwind SQL-to-Python Analysis** | Explore customer sales, suppliers and order geography using SQL Server, pyodbc, pandas, Matplotlib and Seaborn; notebook includes saved tables and charts | [Project guide](python/northwind-analysis/README.md) · [Notebook](pyodbc%20class.ipynb) |
 
-## Reviewing and running the projects
+**Projects awaiting source files:** [NFL Quarterback Performance Analysis – Python](python/nfl-quarterback-analysis/README.md) and [Power BI – Superstore](power-bi/superstore-analysis/README.md). Their analysis, methods and results are not yet available for review here.
 
-The project guides link directly to the original files and describe their prerequisites. SQL Server databases and source datasets are not bundled. The scripts and notebook have not been verified end to end in a clean environment; see each guide before running them.
+## Analytical Approach
 
-The [portfolio review and next steps](docs/portfolio-review.md) records the remaining evidence and reproducibility work.
+I aim to:
+1. Define the business or research question and the unit of analysis.
+2. Understand the source data, relationships and preparation requirements.
+3. Define metrics explicitly and examine assumptions, missing values and duplicates.
+4. Use SQL or Python to compare, aggregate and visualize the data.
+5. Explain findings clearly, separating observations from assumptions and limitations.
 
-## Profile
+The project guides distinguish implemented work from checks and evidence still needed.
 
-[GitHub profile](https://github.com/shachargivon-ops)  
-**Role interests:** Junior Data Analyst · Data Analyst · BI Analyst — Germany
+## Current Focus
+
+- Preparing for Junior Data Analyst and Data & BI Analyst opportunities in Germany.
+- Making SQL and Python work easier to review and reproduce.
+- Adding the existing NFL Python and Superstore files with supporting documentation.
+- Providing portfolio evidence for Power BI, DAX and Excel.
+
+## Repository Navigation
+
+- [SQL business analysis](sql/wideworldimporters-analysis/README.md)
+- [NFL database design](sql/nfl-database/README.md)
+- [Python analysis](python/northwind-analysis/README.md)
+- [Full file inventory and structure](docs/repository-inventory.md)
+- [Review findings and next steps](docs/portfolio-review.md)
+
+Project folders provide the review entry points. Original SQL and notebook files remain at their existing paths to preserve links.
+
+## Languages
+
+Hebrew (Native) · English · German (A1)
+
+[GitHub profile](https://github.com/shachargivon-ops)
