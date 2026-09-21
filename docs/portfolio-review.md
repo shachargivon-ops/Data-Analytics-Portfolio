@@ -1,32 +1,47 @@
-# Portfolio review and next steps
+# Portfolio Review and Next Steps
 
-[Portfolio home](../README.md)
+[Portfolio](../README.md) · [Complete inventory](repository-inventory.md)
 
-## Review scope
+## Review outcome
 
-Documentation review of the two SQL scripts and the Northwind notebook in this repository, with the separate portfolio website used to locate the NFL Python description. Original project files and filenames are preserved.
+The portfolio now introduces Shachar's career transition, target roles in Germany, stated tools and languages, and provides direct access to the available source. The two SQL projects and Northwind notebook are the substantial reviewable work. NFL Python source, two Excel workbooks and the Superstore package are now supplied.
 
-## Priority improvements
+The review inspected every tracked file, notebook source and saved output, including all eight embedded charts. It did not run SQL Server or re-execute the full notebooks. Selected NFL calculations were independently checked against the supplied workbook.
 
-| Priority | Action | Why it matters |
+## Technical findings
+
+| Project | Finding | Next action |
 | --- | --- | --- |
-| 1 | Publish the existing NFL Python notebook and Power BI/Superstore report with data-source attribution | Makes all four featured projects reviewable |
-| 2 | Correct the WideWorldImporters profit label, query-header syntax, percentage formatting and quantity-versus-value wording | Aligns code and reported meaning |
-| 3 | Supply NFL source/import instructions and check join uniqueness and intended one-to-one constraints | Makes the model easier to reproduce and assess |
-| 4 | Add executed SQL result examples and concise, evidence-backed findings | Shows what each analysis actually established |
-| 5 | Record Python dependencies and verify a clean notebook run | Improves reproducibility |
-| 6 | Add an existing Excel workbook or documented Excel example | Provides evidence for Excel without inventing capabilities |
+| WideWorldImporters | Product sales value is labeled profit; monthly monetary totals are described as quantities | Correct definitions and labels in a separately validated analytical update |
+| WideWorldImporters | Opening title is plain text; CTE statement boundaries need review for whole-file execution | Make the script runnable and capture representative results |
+| WideWorldImporters | Percentage strings can truncate values; annualization uses observed months | Review numeric formatting, zero denominators and missing-month assumptions |
+| WideWorldImporters | Churn is an inactivity heuristic, with repeated order rows and no single-order customers | Document population and output grain before interpreting flags |
+| NFL database | Source data/import steps absent; name-based joins and uniqueness need checking | Supply data provenance and validate loading cardinality |
+| NFL database | Intended one-to-one sack relationship is not enforced | Validate the intended grain before adding constraints |
+| Northwind | Saved tables support the reported observations; database/version not supplied | Record dependencies and verify a clean run |
+| Northwind | Generic chart labels and crowded category/supplier charts reduce readability | Improve labels and category encoding in a future notebook revision |
 
-## Application positioning
+These findings are documented without changing analytical logic. No employer achievements or quantitative business impact are inferred from the exercises.
 
-The README targets Junior Data Analyst and Data/BI Analyst applications in Germany. It uses the stated 10+ years in training, program coordination, team management and stakeholder communication as transferable experience.
+## Input still needed
 
-Language proficiency, German residency, work authorization, qualifications and employer achievements have not been supplied and are not asserted. Add such details only after confirmation.
+- NFL data provenance and reconciliation of stale audit summaries.
+- Power BI screenshots/PDF, measure expressions and source/refresh information.
+- A formula-based Excel analysis, if you want to demonstrate skills beyond structured data and documentation.
+- Database provenance/import instructions and environment/package versions for reproducible runs.
 
-## Separate website observations
+Power BI report definitions and Python input files are now inspected. The XLSX files support the Python project only and do not demonstrate Excel processing or analysis skills. Excel remains a user-stated skill. DAX expressions remain unverified. Languages are listed as supplied: Hebrew (Native), English and German (A1), without an invented English proficiency level.
 
-The [website repository](https://github.com/shachargivon-ops/Data-Analytics-Portfolio.io) currently contains placeholder project text, links pointing to `#` and template contact details. Replace these with verified information before using that website in applications. That separate repository is outside this documentation change.
+## Changes and validation
 
-## Verification limits
+- Created five project-folder READMEs, an assets guide, a full inventory and one chart copied from the notebook.
+- Revised the root README and this review; retained the five old project-guide URLs as navigation pages.
+- Preserved the SQL and notebook files without moving, renaming or editing them.
+- Checked internal Markdown links against the complete proposed repository tree.
+- Checked documented Northwind findings against saved notebook tables.
 
-This review inspected source and documentation; it did not execute SQL Server queries, rerun the notebook or inspect a Power BI report. Remaining technical issues are recorded in the project guides. No numerical findings or business-impact claims have been introduced.
+The separate portfolio website repository was not modified in this change.
+
+## Supplied-file follow-up
+
+The NFL guide records mixed-DataFrame period filters, narrative/output mismatches, a normalized-score benchmark issue and contract-estimate limitations. Two saved charts and selected output-backed observations are now presented. The XLSX dataset and dictionary are Python project inputs and documentation, not a separate Excel project. The Power BI guide distinguishes verified report configuration from unverified model expressions and report values.

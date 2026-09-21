@@ -1,0 +1,220 @@
+{
+  "pages": [
+    {
+      "name": "Growth & Trends",
+      "types": {
+        "actionButton": 1,
+        "listSlicer": 4,
+        "cardVisual": 2,
+        "clusteredColumnChart": 1,
+        "lineChart": 5,
+        "kpi": 1
+      },
+      "fields": [
+        "!Measures.Running _Total_Sales",
+        "!Measures.Sales_Previous_Year",
+        "!Measures.Sales_Target",
+        "!Measures.Sales_YoY_%",
+        "!Measures.Total_Profit",
+        "!Measures.Total_Sales",
+        "Customers.Segment",
+        "Geography.Region",
+        "Products.Category",
+        "dimDate!.Date.Variation.Date Hierarchy.Day",
+        "dimDate!.Date.Variation.Date Hierarchy.Month",
+        "dimDate!.Date.Variation.Date Hierarchy.Quarter",
+        "dimDate!.Date.Variation.Date Hierarchy.Year"
+      ]
+    },
+    {
+      "name": "Returns",
+      "types": {
+        "listSlicer": 6,
+        "clusteredBarChart": 2,
+        "lineChart": 1,
+        "actionButton": 1,
+        "pieChart": 1,
+        "shapeMap": 1,
+        "cardVisual": 1,
+        "donutChart": 1
+      },
+      "fields": [
+        "!Measures.Return_Rate_%",
+        "!Measures.Returned_Orders",
+        "!Measures.Returned_Sales",
+        "!Measures.Returned_Sales_%",
+        "Customers.Segment",
+        "Geography.Region",
+        "Geography.State",
+        "Orders.Ship Mode",
+        "Products.Category",
+        "Products.Sub-Category",
+        "Returns.Return Reason",
+        "dimDate!.Date.Variation.Date Hierarchy.Month",
+        "dimDate!.Date.Variation.Date Hierarchy.Quarter",
+        "dimDate!.Date.Variation.Date Hierarchy.Year"
+      ]
+    },
+    {
+      "name": "Product Analysis",
+      "types": {
+        "tableEx": 3,
+        "clusteredColumnChart": 3,
+        "pivotTable": 1,
+        "listSlicer": 5,
+        "cardVisual": 1,
+        "actionButton": 1
+      },
+      "fields": [
+        "!Measures.%_of_Total",
+        "!Measures.Profit_Margin_%",
+        "!Measures.Total_Profit",
+        "!Measures.Total_Quantity",
+        "!Measures.Total_Sales",
+        "!Measures.Total_Sales_%",
+        "Customers.Segment",
+        "Geography.Region",
+        "Products.Category",
+        "Products.Product Name",
+        "Products.Sub-Category",
+        "dimDate!.Date.Variation.Date Hierarchy.Year"
+      ]
+    },
+    {
+      "name": "Sales Overview",
+      "types": {
+        "listSlicer": 4,
+        "clusteredColumnChart": 3,
+        "cardVisual": 1,
+        "lineChart": 2,
+        "gauge": 1,
+        "actionButton": 1
+      },
+      "fields": [
+        "!Measures.Average_Order_Value",
+        "!Measures.Count_Customers",
+        "!Measures.Count_Orders",
+        "!Measures.Profit_Margin_%",
+        "!Measures.Running _Total_Sales",
+        "!Measures.Sales_Gauge_Max",
+        "!Measures.Sales_Previous_Year",
+        "!Measures.Sales_Target",
+        "!Measures.Sales_YoY_%",
+        "!Measures.Total_Profit",
+        "!Measures.Total_Sales",
+        "Customers.Segment",
+        "Geography.Region",
+        "Products.Category",
+        "dimDate!.Date.Variation.Date Hierarchy.Day",
+        "dimDate!.Date.Variation.Date Hierarchy.Month",
+        "dimDate!.Date.Variation.Date Hierarchy.Quarter",
+        "dimDate!.Date.Variation.Date Hierarchy.Year"
+      ]
+    },
+    {
+      "name": "Customer Analysis",
+      "types": {
+        "listSlicer": 4,
+        "clusteredBarChart": 2,
+        "pieChart": 3,
+        "actionButton": 1,
+        "pivotTable": 1,
+        "cardVisual": 1,
+        "clusteredColumnChart": 1
+      },
+      "fields": [
+        "!Measures.Average_Sales_per_Customer",
+        "!Measures.Count_Customers",
+        "!Measures.Count_Orders",
+        "!Measures.Orders_per_Customer",
+        "!Measures.Profit_Margin_%",
+        "!Measures.Total_Profit",
+        "!Measures.Total_Quantity",
+        "!Measures.Total_Sales",
+        "!Measures.Total_Sales_%",
+        "Customers.Customer Name",
+        "Customers.Customers Hierarchy.Customer Name",
+        "Customers.Customers Hierarchy.Segment",
+        "Customers.Segment",
+        "Geography.Region",
+        "Products.Category",
+        "dimDate!.Date.Variation.Date Hierarchy.Year"
+      ]
+    },
+    {
+      "name": "Regional Analysis",
+      "types": {
+        "clusteredBarChart": 3,
+        "pieChart": 3,
+        "listSlicer": 5,
+        "cardVisual": 1,
+        "shapeMap": 1,
+        "pivotTable": 1,
+        "actionButton": 1
+      },
+      "fields": [
+        "!Measures.Average_Order_Value",
+        "!Measures.Count_Orders",
+        "!Measures.Profit_Margin_%",
+        "!Measures.Total_Profit",
+        "!Measures.Total_Sales",
+        "Customers.Segment",
+        "Geography.City",
+        "Geography.Region",
+        "Geography.Region Hierarchy.City",
+        "Geography.Region Hierarchy.Region",
+        "Geography.Region Hierarchy.State",
+        "Geography.State",
+        "Products.Category",
+        "dimDate!.Date.Variation.Date Hierarchy.Year"
+      ]
+    },
+    {
+      "name": "Shipping & Operations",
+      "types": {
+        "listSlicer": 4,
+        "clusteredColumnChart": 3,
+        "cardVisual": 1,
+        "lineChart": 1,
+        "actionButton": 1,
+        "pivotTable": 1
+      },
+      "fields": [
+        "!Measures.Average_Shipping_Days",
+        "!Measures.Count_Orders",
+        "!Measures.Count_Orders_%",
+        "!Measures.Total_Profit",
+        "!Measures.Total_Sales",
+        "Geography.Region",
+        "Orders.Ship Mode",
+        "Products.Category",
+        "Products.Sub-Category",
+        "dimDate!.Date.Variation.Date Hierarchy.Month",
+        "dimDate!.Date.Variation.Date Hierarchy.Year"
+      ]
+    }
+  ],
+  "measures": [
+    "Average_Order_Value",
+    "Average_Sales_per_Customer",
+    "Average_Shipping_Days",
+    "Count_Customers",
+    "Count_Orders",
+    "Count_Orders_%",
+    "Orders_per_Customer",
+    "Profit_Margin_%",
+    "Return_Rate_%",
+    "Returned_Orders",
+    "Returned_Sales",
+    "Returned_Sales_%",
+    "Running _Total_Sales",
+    "Sales_Gauge_Max",
+    "Sales_Previous_Year",
+    "Sales_Target",
+    "Sales_YoY_%",
+    "Total_Profit",
+    "Total_Quantity",
+    "Total_Sales",
+    "Total_Sales_%"
+  ]
+}
