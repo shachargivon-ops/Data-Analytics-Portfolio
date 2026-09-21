@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="610" viewBox="0 0 1200 610">
+<rect width="1200" height="610" fill="#101d32"/>
+<g font-family="Arial, sans-serif"><text x="55" y="65" fill="white" font-size="32" font-weight="bold">Superstore · verified table inventory</text>
+<text x="55" y="102" fill="#b9cbe2" font-size="18">Names extracted from PBIX DiagramLayout · not a relationship diagram</text>
+<rect x="55" y="145" width="255" height="110" rx="12" fill="#213651" stroke="#426180"/>
+<text x="75" y="193" fill="#ffffff" font-size="25">Customers</text>
+<text x="75" y="225" fill="#92dace" font-size="15">Diagram node verified</text>
+<rect x="335" y="145" width="255" height="110" rx="12" fill="#213651" stroke="#426180"/>
+<text x="355" y="193" fill="#ffffff" font-size="25">DimDate</text>
+<text x="355" y="225" fill="#92dace" font-size="15">Diagram node verified</text>
+<rect x="615" y="145" width="255" height="110" rx="12" fill="#213651" stroke="#426180"/>
+<text x="635" y="193" fill="#ffffff" font-size="25">Geography</text>
+<text x="635" y="225" fill="#92dace" font-size="15">Diagram node verified</text>
+<rect x="895" y="145" width="255" height="110" rx="12" fill="#213651" stroke="#426180"/>
+<text x="915" y="193" fill="#ffffff" font-size="25">Orders</text>
+<text x="915" y="225" fill="#92dace" font-size="15">Diagram node verified</text>
+<rect x="55" y="290" width="255" height="110" rx="12" fill="#213651" stroke="#426180"/>
+<text x="75" y="338" fill="#ffffff" font-size="25">Products</text>
+<text x="75" y="370" fill="#92dace" font-size="15">Diagram node verified</text>
+<rect x="335" y="290" width="255" height="110" rx="12" fill="#213651" stroke="#426180"/>
+<text x="355" y="338" fill="#ffffff" font-size="25">Returns</text>
+<text x="355" y="370" fill="#92dace" font-size="15">Diagram node verified</text>
+<rect x="615" y="290" width="255" height="110" rx="12" fill="#213651" stroke="#426180"/>
+<text x="635" y="338" fill="#ffffff" font-size="25">!Measures</text>
+<text x="635" y="370" fill="#92dace" font-size="15">Diagram node verified</text>
+<rect x="895" y="290" width="255" height="110" rx="12" fill="#213651" stroke="#426180"/>
+<text x="915" y="338" fill="#ffffff" font-size="25">dimDate!</text>
+<text x="915" y="370" fill="#92dace" font-size="15">Diagram node verified</text>
+<text x="55" y="485" fill="#b9cbe2" font-size="18">Relationships, cardinality, keys and filter direction: not extracted.</text>
+<text x="55" y="520" fill="#b9cbe2" font-size="18">DimDate and dimDate! are distinct labels; their model roles remain unverified.</text>
+<text x="55" y="565" fill="#92dace" font-size="16">Evidence illustration generated from metadata · no Power BI screenshot or invented edges</text></g></svg>
