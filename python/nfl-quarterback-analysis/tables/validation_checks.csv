@@ -1,0 +1,16 @@
+check,flagged_rows
+duplicate full rows,0
+duplicate player-season keys,0
+games started exceeds games,0
+games exceeds team schedule (review only),1
+completions exceeds attempts,0
+TD exceeds completions,0
+interceptions exceeds attempts,0
+nonpositive attempts,0
+negative count fields,0
+fractional first-down count,1689
+birth year vs age differs by more than one,51
+season precedes league entry,0
+unparseable date,0
+rating outside bounds,0
+percentage outside 0-100,0

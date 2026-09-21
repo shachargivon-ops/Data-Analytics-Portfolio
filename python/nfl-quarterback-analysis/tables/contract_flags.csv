@@ -1,0 +1,33 @@
+Player,Year,Contract_Status,Contract_Value,Contract_APY,Contract_Year_Signed,Contract_Length,APY_Reconciles
+Drew Brees,2006,source-labeled historical,60000000.0,10000000.0,2006.0,5.0,False
+Vince Young,2006,source-labeled historical,48040020.0,8006670.0,2006.0,4.0,False
+Jason Campbell,2006,source-labeled historical,7500000.0,7500000.0,2005.0,5.0,False
+Drew Brees,2008,source-labeled historical,60000000.0,10000000.0,2006.0,5.0,False
+Jason Campbell,2008,source-labeled historical,7500000.0,7500000.0,2005.0,5.0,False
+Kyle Orton,2008,source-labeled historical,3000000.0,3000000.0,2008.0,2.0,False
+Vince Young,2008,source-labeled historical,48040020.0,8006670.0,2006.0,4.0,False
+Drew Brees,2009,source-labeled historical,60000000.0,10000000.0,2006.0,5.0,False
+Kyle Orton,2009,source-labeled historical,3000000.0,3000000.0,2008.0,2.0,False
+Jason Campbell,2009,source-labeled historical,7500000.0,7500000.0,2005.0,5.0,False
+Vince Young,2009,source-labeled historical,48040020.0,8006670.0,2006.0,4.0,False
+Drew Brees,2010,source-labeled historical,60000000.0,10000000.0,2006.0,5.0,False
+Sam Bradford,2010,source-labeled historical,78000000.0,13000000.0,2010.0,5.0,False
+Sam Bradford,2011,source-labeled historical,78000000.0,13000000.0,2010.0,5.0,False
+Sam Bradford,2012,source-labeled historical,78000000.0,13000000.0,2010.0,5.0,False
+Robert Griffin III,2012,source-labeled historical,21119098.0,5279775.0,2012.0,5.0,False
+Robert Griffin III,2013,source-labeled historical,21119098.0,5279775.0,2012.0,5.0,False
+Sam Bradford,2013,source-labeled historical,78000000.0,13000000.0,2010.0,5.0,False
+Robert Griffin III,2014,source-labeled historical,21119098.0,5279775.0,2012.0,5.0,False
+Nick Foles,2015,source-labeled historical,25000000.0,12250000.0,2015.0,2.0,False
+Austin Davis,2015,source-labeled historical,4173530.0,2086765.0,2015.0,3.0,False
+B.J. Daniels,2015,source-labeled historical,1110000.0,555000.0,2015.0,1.0,False
+Blake Bortles,2018,source-labeled historical,34947000.0,17483500.0,2018.0,2.0,False
+Kyle Allen,2018,source-labeled historical,1713000.0,581000.0,2018.0,3.0,False
+Kyle Allen,2019,source-labeled historical,1713000.0,581000.0,2018.0,3.0,False
+Alex Tanney,2019,source-labeled historical,2150000.0,1050000.0,2019.0,2.0,False
+Zach Wilson,2021,source-labeled historical,35150680.0,8787695.0,2021.0,4.0,False
+Aaron Rodgers,2022,source-labeled historical,150815000.0,50271667.0,2022.0,5.0,False
+Zach Wilson,2022,source-labeled historical,35150680.0,8787695.0,2021.0,4.0,False
+Mitchell Trubisky,2022,source-labeled historical,14285000.0,7412500.0,2022.0,2.0,False
+Colt McCoy,2022,source-labeled historical,7500000.0,3250000.0,2022.0,2.0,False
+Zach Wilson,2023,source-labeled historical,35150680.0,8787695.0,2021.0,4.0,False

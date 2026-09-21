@@ -1,0 +1,894 @@
+cell,cell_type,source_excerpt,issue_ids,disposition,saved_output_types
+1,code,"import pyodbc as pdb
+import pandas as pd
+import pandasql as pds
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt",A01,Addressed in linked audit issue(s),
+2,code,"df = pd.read_excel(""Project 3 NFL Passing Statistics Analysis (Shachar Givon).xlsx"")",A01,Addressed in linked audit issue(s),
+3,code,df,A02,Addressed in linked audit issue(s),execute_result
+4,code,df.shape,A02,Addressed in linked audit issue(s),execute_result
+5,code,df.info(),A02,Addressed in linked audit issue(s),stream
+6,code,df.isna().sum(),"A02, A03",Addressed in linked audit issue(s),execute_result
+7,code,"#inverting to datetime from text(object)
+df[""Birthday""] = pd.to_datetime(df[""Birthday""],format=""%d/%m/%Y"")
+
+df[""League_Entry_Date""] = pd.to_datetime(df[""League_Entry_Date""],format=""%d/%m/%Y"")","A02, A03",Addressed in linked audit issue(s),
+8,code,"# calculating how many years the players has in league to determine experience level
+df[""League_Entry_Year""] = df[""League_Entry_Date""].dt.year
+
+df[""Years_in_League""] = df[""Year""] - df[""League_Entry_Year""] + 1","A02, A03",Addressed in linked audit issue(s),
+9,code,"def career_stage(years):
+    if years <= 1:
+        return ""Rookie""
+    elif years <= 5:
+        return ""Young""
+    elif years <= 10:
+        return ""Prime""
+    elif years <= 15:
+        return ""Veteran""
+    else:
+        return ""Late Career""
+
+df[""Career_Stage""] = df[""Years_in_League""].apply(career_","A02, A03",Addressed in linked audit issue(s),
+10,code,df.info(),A02,Addressed in linked audit issue(s),stream
+11,code,"df[""Contract_Value_Estimated""] = df[""Contract_Value""]
+df[""Contract_APY_Estimated""] = df[""Contract_APY""]","A02, A04",Addressed in linked audit issue(s),
+12,code,"#filling NaN contract value with median estimation
+year_median = (df.groupby(""Year"")[""Contract_Value""].transform(""median""))
+
+df[""Contract_Value_Estimated""] = (df[""Contract_Value_Estimated""].fillna(year_median))","A02, A04",Addressed in linked audit issue(s),
+13,code,"#filling NaN AVG pay per year value with median estimation
+year_apy = (df.groupby(""Year"")[""Contract_APY""].transform(""median""))
+
+df[""Contract_APY_Estimated""] = (df[""Contract_APY_Estimated""].fillna(year_apy))","A02, A04",Addressed in linked audit issue(s),
+14,code,"df[""Contract_Is_Estimated""] = df[""Contract_Value""].isna()","A02, A04",Addressed in linked audit issue(s),
+15,code,"#filling NaN contract source with ""Python Estimated""
+
+df.loc[df[""Contract_Value""].isna(),""Contract_Source""] = ""Python Estimated""","A02, A04",Addressed in linked audit issue(s),
+16,code,df.info(),"A02, A04",Addressed in linked audit issue(s),stream
+17,code,"df[""Contract_Value_Estimated""] = df[""Contract_Value_Estimated""].astype(""int64"")
+
+df[""Contract_APY_Estimated""] = df[""Contract_APY_Estimated""].astype(""int64"")","A02, A04",Addressed in linked audit issue(s),
+18,code,"columns = [""Contract_Value_Estimated"",""Contract_APY_Estimated""]
+
+df[columns] = df[columns].astype(""int64"")","A02, A04",Addressed in linked audit issue(s),
+19,code,"columns = [""Contract_Value"",""Contract_APY"",""Contract_Year_Signed"",""Contract_Length""]
+
+df[columns] = df[columns].round().astype(""Int64"")","A02, A04",Addressed in linked audit issue(s),
+20,code,df.info(),A02,Addressed in linked audit issue(s),stream
+21,code,df.describe(),"A02, A05",Addressed in linked audit issue(s),execute_result
+22,code,sns.pairplot(df),"A02, A05",Addressed in linked audit issue(s),"display_data, execute_result"
+23,code,df.corr(numeric_only=True),"A02, A05",Addressed in linked audit issue(s),execute_result
+24,code,"plt.figure(figsize=(12,10))
+
+sns.heatmap(df.corr(numeric_only=True),cmap='coolwarm')","A02, A05",Addressed in linked audit issue(s),"display_data, execute_result"
+25,code,df,A02,Addressed in linked audit issue(s),execute_result
+26,code,"#After examining the data structure, it can be seen that the file contains passing statistics for NFL players over several seasons. 
+#Each row represents a specific player's performance in a specific season.",A06,Addressed in linked audit issue(s),
+27,code,"#The central question that the data allows us to answer is:
+#What influences the quality of a quarterback's performance throughout the Dataset time frame (01-23)?
+
+#Additional questions are derived:
+#1.How has the style of play changed over the years?
+#2.Which teams succeed in developing good quarte",A06,Addressed in linked audit issue(s),
+28,code,#Theme - How has the NFL passing game changed over the years?,A06,Addressed in linked audit issue(s),
+29,code,"#Filtering out non QB players
+filteredDf = df[(df['G'] > 5) & (df['Att'] > 10)]
+
+filteredDf",A06,Addressed in linked audit issue(s),execute_result
+30,code,"#Using stats by year for trend by seasson analysis
+season_stats = (filteredDf.groupby(""Year"").agg({""Att"":""mean"",""Yds"":""mean"",""TD"":""sum"",""Int"":""sum"",""Cmp%"":""mean"",""Rate"":""mean"",""ANY/A"":""mean""}).round(2).reset_index())
+
+season_stats.head()",A08,Addressed in linked audit issue(s),execute_result
+31,code,"#AVG Att 01-10 & 11-20
+meanAtt_01_10 = season_stats[(season_stats[""Year""] >= 2001) & (df[""Year""] <= 2010)][""Att""].mean()
+
+meanAtt_11_20 = season_stats[(season_stats[""Year""] >= 2011) & (df[""Year""] <= 2020)][""Att""].mean()",A07,Addressed in linked audit issue(s),stream
+32,code,"#Average Passing Attempts 
+plt.figure(figsize=(12,6))
+
+sns.lineplot(data=season_stats,x=""Year"",y=""Att"",marker=""o"",color=""lime"")
+
+plt.title(""Average Passing Attempts per QB by Season"")
+plt.xlabel(""Season"")
+plt.ylabel(""Average Attempts"")
+plt.axhline(y=meanAtt_01_10,xmin=0,xmax=0.43,linestyle=""--"",labe",A08,Addressed in linked audit issue(s),display_data
+33,code,"#The graph shows how the average number of passing attempts per quarterback changed by season.
+#The green line represents the yearly average, while the dashed horizontal lines compare two periods: 2001–2010 and 2011–2020.
+#The main finding is that passing volume clearly increased in the second decad",A08,Addressed in linked audit issue(s),
+34,code,"#AVG Yds 01-10 & 11-20
+meanYds_01_10 = season_stats[(season_stats[""Year""] >= 2001) & (df[""Year""] <= 2010)][""Yds""].mean()
+
+meanYds_11_20 = season_stats[(season_stats[""Year""] >= 2011) & (df[""Year""] <= 2020)][""Yds""].mean()",A07,Addressed in linked audit issue(s),stream
+35,code,"#Average Passing Yards
+
+plt.figure(figsize=(12,6))
+
+sns.lineplot(data=season_stats,x=""Year"",y=""Yds"",marker=""o"",color=""blue"")
+
+plt.title(""Average Passing Yards per QB by Season"")
+plt.xlabel(""Season"")
+plt.ylabel(""Average Yards"")
+plt.axhline(y=meanYds_01_10,xmin=0,xmax=0.43,linestyle=""--"",label=""AVG 20",A08,Addressed in linked audit issue(s),display_data
+36,code,"#This graph shows the change in average passing yards per quarterback by season from 2001 to 2023 and reinforces the trend seen in the passing-attempts graph.
+
+#The 2001–2010 average was approximately 2,680 passing yards per QB, while the 2011–2020 average increased to approximately 2,850 yards.
+#Th",A08,Addressed in linked audit issue(s),
+37,code,"#AVG TD 01-10 & 11-20
+meanTD_01_10 = season_stats[(season_stats[""Year""] >= 2001) & (df[""Year""] <= 2010)][""TD""].mean()
+
+meanTD_11_20 = season_stats[(season_stats[""Year""] >= 2011) & (df[""Year""] <= 2020)][""TD""].mean()",A07,Addressed in linked audit issue(s),stream
+38,code,"#Passing TD
+
+plt.figure(figsize=(12,6))
+
+sns.lineplot(data=season_stats,x=""Year"",y=""TD"",marker=""o"",color=""green"")
+
+plt.title(""Passing Touchdowns by Season"")
+plt.xlabel(""Year"")
+plt.ylabel(""TD"")
+plt.axhline(y=meanTD_01_10,xmin=0,xmax=0.43,linestyle=""--"",label=""AVG 2001-2010"",color=""red"")
+plt.axhline(y",A08,Addressed in linked audit issue(s),display_data
+39,code,"#This graph shows the total number of passing touchdowns in the NFL by season from 2001 to 2023.
+
+#The main trend is a gradual increase in passing touchdowns. 
+#During 2001–2010, the average was approximately 740 TDs per season, while during 2011–2020, it increased to approximately 810 TDs.
+#This re",A08,Addressed in linked audit issue(s),
+40,code,"#AVG Int 01-10 & 11-20
+meanInt_01_10 = season_stats[(season_stats[""Year""] >= 2001) & (df[""Year""] <= 2010)][""Int""].mean()
+
+meanInt_11_20 = season_stats[(season_stats[""Year""] >= 2011) & (df[""Year""] <= 2020)][""Int""].mean()",A07,Addressed in linked audit issue(s),stream
+41,code,"#Interceptions
+plt.figure(figsize=(12,6))
+
+sns.lineplot(data=season_stats,x=""Year"",y=""Int"",marker=""o"",color=""red"")
+
+plt.title(""Interceptions by Season"")
+plt.xlabel(""Year"")
+plt.ylabel(""Average INT"")
+plt.axhline(y=meanInt_01_10,xmin=0,xmax=0.43,linestyle=""--"",label=""AVG 2001-2010"",color=""red"")
+plt.axh","A08, A09",Addressed in linked audit issue(s),display_data
+42,code,"#This graph shows the number of interceptions (INT) by season from 2001 to 2023.
+
+#The most important finding is that interceptions generally declined over time. 
+#During 2001–2010, the average was approximately 440 interceptions per season, while during 2011–2020, it fell to around 420 interception",A08,Addressed in linked audit issue(s),
+43,code,"#AVG Cmp% 01-10 & 11-20
+meanCmp_01_10 = season_stats[(season_stats[""Year""] >= 2001) & (df[""Year""] <= 2010)][""Cmp%""].mean()
+
+meanCmp_11_20 = season_stats[(season_stats[""Year""] >= 2011) & (df[""Year""] <= 2020)][""Cmp%""].mean()",A07,Addressed in linked audit issue(s),stream
+44,code,"#Completion Percentage
+plt.figure(figsize=(12,6))
+
+sns.lineplot(data=season_stats,x=""Year"",y=""Cmp%"",marker=""o"",color=""orange"")
+
+plt.title(""Average Completion Percentage"")
+plt.xlabel(""Year"")
+plt.ylabel(""Completion %"")
+plt.axhline(y=meanCmp_01_10,xmin=0,xmax=0.43,linestyle=""--"",label=""AVG 2001-2010"",c",A08,Addressed in linked audit issue(s),display_data
+45,code,"#This graph shows the average completion percentage of NFL quarterbacks by season from 2001 to 2023.
+#Unlike some of the previous metrics, the trend here is particularly clear: quarterback passing accuracy improved substantially over time.
+
+#During 2001–2010, the average completion percentage was ap",A08,Addressed in linked audit issue(s),
+46,code,"#AVG Rate 01-10 & 11-20
+meanRate_01_10 = season_stats[(season_stats[""Year""] >= 2001) & (df[""Year""] <= 2010)][""Rate""].mean()
+
+meanRate_11_20 = season_stats[(season_stats[""Year""] >= 2011) & (df[""Year""] <= 2020)][""Rate""].mean()",A07,Addressed in linked audit issue(s),stream
+47,code,"#Passer Rating
+plt.figure(figsize=(12,6))
+
+sns.lineplot(data=season_stats,x=""Year"",y=""Rate"",marker=""o"",color=""purple"")
+
+plt.title(""Average Passer Rating by Season"")
+plt.xlabel(""Year"")
+plt.ylabel(""Rating"")
+plt.axhline(y=meanRate_01_10,xmin=0,xmax=0.43,linestyle=""--"",label=""AVG 2001-2010"",color=""red"")",A08,Addressed in linked audit issue(s),display_data
+48,code,"#This graph shows the average NFL quarterback Passer Rating by season from 2001 to 2023.
+#this is one of the clearest indicators that passing performance became more efficient over time.
+
+#During 2001–2010, the average Passer Rating was approximately 84.3, compared with approximately 87.7 during 201",A08,Addressed in linked audit issue(s),
+49,code,"#AVG ANY/A 01-10 & 11-20
+meanANYA_01_10 = season_stats[(season_stats[""Year""] >= 2001) & (df[""Year""] <= 2010)][""ANY/A""].mean()
+
+meanANYA_11_20 = season_stats[(season_stats[""Year""] >= 2011) & (df[""Year""] <= 2020)][""ANY/A""].mean()",A07,Addressed in linked audit issue(s),stream
+50,code,"#ANY/A
+plt.figure(figsize=(12,6))
+
+sns.lineplot(data=season_stats,x=""Year"",y=""ANY/A"",marker=""o"",color=""brown"")
+
+plt.title(""Average ANY/A by Season"")
+plt.xlabel(""Year"")
+plt.ylabel(""ANY/A"")
+plt.axhline(y=meanANYA_01_10,xmin=0,xmax=0.43,linestyle=""--"",label=""AVG 2001-2010"",color=""red"")
+plt.axhline(y=me",A08,Addressed in linked audit issue(s),display_data
+51,code,"#This graph shows the average Adjusted Net Yards per Attempt (ANY/A) by season from 2001 to 2023.
+
+#ANY/A is especially useful because it measures passing efficiency more comprehensively than simply looking at yards. 
+#It considers passing yards, touchdowns, interceptions, and sacks. In simple terms",A08,Addressed in linked audit issue(s),
+52,code,"plt.figure(figsize=(12,10))
+
+
+plt.subplot(7,1,1)
+sns.lineplot(data=season_stats,x=""Year"",y=""Att"",marker=""o"",label='Attempts',color=""lime"")
+
+plt.subplot(7,1,2)
+sns.lineplot(data=season_stats,x=""Year"",y=""Yds"",marker=""o"",label='Passing Yards',color=""blue"")
+
+plt.subplot(7,1,3)
+sns.lineplot(data=season_s","A08, A09",Addressed in linked audit issue(s),"display_data, execute_result"
+53,code,"#Trend Analysis:
+
+#Between 2001 and 2023, the NFL passing game became significantly more efficient. 
+#Average completion percentage and passer rating steadily increased, indicating improved quarterback accuracy and decision-making. 
+#Passing touchdowns generally rose while interceptions declined, su",A08,Addressed in linked audit issue(s),
+54,code,,,Empty cell; omit,
+55,code,"#Theme  
+#Which teams produce the best quarterbacks performance?",A06,Addressed in linked audit issue(s),
+56,code,"#Using stats by team for trend by team analysis.
+#Merging player + team size to deterimne seniority in the team. filtering players with less than 5 years in a team.
+#Merging filteredDf with player_team
+
+player_team = (filteredDf.groupby([""Player"", ""Tm""]).size().reset_index(name=""Seasons""))
+
+player_t",A10,Addressed in linked audit issue(s),execute_result
+57,code,"# Performance averages for each team
+Team_Stats = (filtered_Df_Team.groupby(""Tm"").agg({""Rate"": ""mean"",""TD"": ""mean"",""Cmp%"": ""mean""}).round(2).reset_index())
+
+Team_Stats.head()",A10,Addressed in linked audit issue(s),execute_result
+58,code,"# Ranking teams by Passer Rating
+Team_Stats_Rate = Team_Stats.sort_values(by=""Rate"",ascending=False)",A10,Addressed in linked audit issue(s),
+59,code,"#Average QB Rating
+plt.figure(figsize=(12,8))
+
+sns.barplot(data=Team_Stats_Rate,x=""Tm"",y=""Rate"",hue=""Tm"",legend=False,palette=""crest"")
+
+plt.title(""Average Quarterback Passer Rating by Team"")
+plt.xlabel(""Team"")
+plt.ylabel(""Average Rating"")",A10,Addressed in linked audit issue(s),"display_data, execute_result"
+60,code,"#The graph shows the average quarterback Passer Rating for each team. A higher bar indicates that quarterbacks playing for that team produced more efficient passing performances on average.
+
+#New Orleans (NOR) ranks first with an average rating of almost 100, followed closely by Dallas (DAL) and Gre",A10,Addressed in linked audit issue(s),
+61,code,"# Ranking teams by TD
+Team_Stats_TD = Team_Stats.sort_values(by=""TD"",ascending=False)",A10,Addressed in linked audit issue(s),
+62,code,"#Average TD
+plt.figure(figsize=(12,6))
+
+sns.barplot(data=Team_Stats_TD,x=""Tm"",y=""TD"",hue=""Tm"",legend=False,palette=""crest"")
+
+plt.title(""Average Passing Touchdowns by Team"")
+plt.xlabel(""Team"")
+plt.ylabel(""Average TD"")",A10,Addressed in linked audit issue(s),"display_data, execute_result"
+63,code,"#The graph shows the average number of passing touchdowns (Average TD) by quarterbacks for each team during the period covered by the dataset. A higher bar means that quarterbacks playing for that team produced more passing touchdowns on average.
+
+#Indianapolis (IND) and Green Bay (GNB) lead the ran",A10,Addressed in linked audit issue(s),
+64,code,"# Ranking teams by Average Completion%
+Team_Stats_Comp = Team_Stats.sort_values(by=""Cmp%"",ascending=False)",A10,Addressed in linked audit issue(s),
+65,code,"#Average Completion%
+plt.figure(figsize=(12,6))
+
+sns.barplot(data=Team_Stats_Comp,x=""Tm"",y=""Cmp%"",hue=""Tm"",legend=False,palette=""crest"")
+
+plt.title(""Average Completion Percentage by Team"")
+plt.xlabel(""Team"")
+plt.ylabel(""Completion %"")",A10,Addressed in linked audit issue(s),"display_data, execute_result"
+66,code,"#The graph shows the average Completion Percentage of quarterbacks by team. A higher percentage means that quarterbacks completed a larger proportion of their passing attempts.
+
+#Minnesota (MIN) ranks first at approximately 67%, followed by Dallas (DAL) and the Los Angeles Chargers (LAC) at around 6",A10,Addressed in linked audit issue(s),
+67,code,"#An analysis of the three metrics (Average Rating, Average TD, and Average Completion %) shows that no single team leads in all areas, but some interesting trends can be identified.
+
+#Dallas (DAL) and Green Bay (GNB) are at the top of the Quarterback Rating rankings, indicating that their quarterbac",A10,Addressed in linked audit issue(s),
+68,code,,,Empty cell; omit,
+69,code,"#Theme
+#Who are the best quarterbacks of the time period (01-23)?
+#metrics: Rating, TD, Completion %,ANY/A, NY/A, TD per Game",A06,Addressed in linked audit issue(s),
+70,code,"#Using stricter filtering to set a higher bar for analyzing players based on performance over a long period of time. 
+
+filtered_Df_Career = df[(df['G'] > 5) & (df['Att'] > 30)]
+
+filtered_Df_Career",A11,Addressed in linked audit issue(s),execute_result
+71,code,"#--Calculating career averages
+careerStats = (filtered_Df_Career.groupby('Player').agg({'Rate': 'mean','TD': 'sum','Cmp%': 'mean','ANY/A': 'mean','NY/A': 'mean'}).round(2).reset_index())
+
+careerStats.head()",A11,Addressed in linked audit issue(s),execute_result
+72,code,"#--Rank by Rating
+top10Rating = careerStats.sort_values(by=""Rate"",ascending=False).head(10)
+
+top10Rating",A11,Addressed in linked audit issue(s),execute_result
+73,code,"#Add TD Per Game Column
+career_stats = (filtered_Df_Career.groupby(""Player"").agg(Seasons=(""Year"", ""nunique""),Games=(""G"", ""sum""),TD=(""TD"", ""sum""),Rate=(""Rate"", ""mean""),Completion=(""Cmp%"", ""mean""),ANYA=(""ANY/A"", ""mean""),NYA=(""NY/A"", ""mean"")).reset_index())
+
+career_stats[""TD_per_Game""] = (career_stats[",A11,Addressed in linked audit issue(s),
+74,code,"#Based on the performance of Brock Purdy, who only had one season, I decided to add a filter of several years to isolate players with a small sample size.
+#Added +5 seasons filter
+career_stats = (filtered_Df_Career.groupby(""Player"").agg(Seasons=(""Year"", ""nunique""),Games=(""G"", ""sum""),TD=(""TD"", ""sum"")","A11, A12",Addressed in linked audit issue(s),execute_result
+75,code,"#--Rank by career Passer Rating 
+top10Rating= career_stats_filtered.sort_values(by=""Rate"",ascending=False).head(10)
+
+top10Rating",A11,Addressed in linked audit issue(s),execute_result
+76,code,"meanRate = career_stats_filtered[""Rate""].mean()",A11,Addressed in linked audit issue(s),
+77,code,"plt.figure(figsize=(12,6))
+
+ax=sns.barplot(data=top10Rating,x=""Player"",y=""Rate"",hue=""Player"",legend=False,palette='Spectral')
+
+plt.title(""Top 10 Quarterbacks by Average Passer Rating (01-23)"")
+plt.xlabel(""Player"")
+plt.ylabel(""Average Rating"")
+plt.xticks(rotation=45)
+for container in ax.containers:
+ ",A11,Addressed in linked audit issue(s),display_data
+78,code,"#The chart shows the Top 10 quarterbacks by average Passer Rating between 2001 and 2023. 
+#Passer Rating combines several aspects of passing performance, so a higher rating generally represents greater passing efficiency.
+
+#Aaron Rodgers leads the ranking with an average rating of approximately 104,",A12,Addressed in linked audit issue(s),
+79,code,"#--Rank by career TD 
+
+top10TD = career_stats_filtered.sort_values(by=""TD"",ascending=False).head(10)
+
+top10TD",A11,Addressed in linked audit issue(s),execute_result
+80,code,"meanTD = career_stats_filtered[""TD""].mean()
+
+meanTD",A11,Addressed in linked audit issue(s),execute_result
+81,code,"plt.figure(figsize=(12,6))
+
+ax1=sns.barplot(data=top10TD,x=""Player"",y=""TD"",hue=""Player"",legend=False,palette='Spectral')
+
+plt.title(""Top 10 Quarterbacks by TD (01-23)"")
+plt.xlabel(""Player"")
+plt.ylabel(""Average TD"")
+plt.xticks(rotation=45)
+for container in ax1.containers:
+    ax1.bar_label(container,","A09, A11",Addressed in linked audit issue(s),display_data
+82,code,"#The chart shows the Top 10 quarterbacks by total passing touchdowns between 2001 and 2023.
+
+#Tom Brady clearly leads the ranking with approximately 600 touchdown passes during the analyzed period. 
+#Drew Brees follows with around 540, while Aaron Rodgers ranks third with approximately 475. Peyton M",A12,Addressed in linked audit issue(s),
+83,code,"#--Rank by career TD Per Game
+
+top10TDPerGame = career_stats_filtered.sort_values(by=""TD_per_Game"",ascending=False).head(10)
+
+top10TDPerGame",A11,Addressed in linked audit issue(s),execute_result
+84,code,"meanTD_per_Game = career_stats_filtered[""TD_per_Game""].mean()
+
+meanTD_per_Game",A11,Addressed in linked audit issue(s),execute_result
+85,code,"plt.figure(figsize=(12,6))
+
+ax2=sns.barplot(data=top10TDPerGame,x=""Player"",y=""TD_per_Game"",hue=""Player"",legend=False,palette='Spectral')
+
+plt.title(""Top 10 Quarterbacks by TD Per Game (01-23)"")
+plt.xlabel(""Player"")
+plt.ylabel(""Career Passing Touchdowns Per Game"")
+plt.xticks(rotation=45)
+for containe",A11,Addressed in linked audit issue(s),display_data
+86,code,"#The chart shows the Top 10 quarterbacks by career passing touchdowns per game between 2001 and 2023. Unlike total career touchdowns, TD per game largely reduces the advantage associated with career length and provides a better indication of a quarterback's touchdown production rate.
+
+#Patrick Mahom",A12,Addressed in linked audit issue(s),
+87,code,"#--Rank by career AVG Completion %
+
+top10Completion = career_stats_filtered.sort_values(by=""Completion"",ascending=False).head(10)
+
+top10Completion",A11,Addressed in linked audit issue(s),execute_result
+88,code,"meanCompletion = career_stats_filtered[""Completion""].mean()
+
+meanCompletion",A11,Addressed in linked audit issue(s),execute_result
+89,code,"plt.figure(figsize=(12,6))
+
+ax3=sns.barplot(data=top10Completion,x=""Player"",y=""Completion"",hue=""Player"",legend=False,palette='Spectral')
+
+plt.title(""Top 10 Quarterbacks by Average Completion% (01-23)"")
+plt.xlabel(""Player"")
+plt.ylabel(""Average Completion%"")
+plt.xticks(rotation=45)
+for container in ax",A11,Addressed in linked audit issue(s),display_data
+90,code,"#The chart shows the Top 10 quarterbacks by average Completion Percentage between 2001 and 2023.
+#Completion % measures the percentage of a quarterback's passing attempts that result in completed passes.
+
+#Drew Brees leads the ranking at approximately 67.6%, closely followed by Kirk Cousins, Jimmy G",A12,Addressed in linked audit issue(s),
+91,code,"#--Rank by career AVG NY/A	
+
+top10NYA = career_stats_filtered.sort_values(by=""NYA"",ascending=False).head(10)
+
+top10NYA",A11,Addressed in linked audit issue(s),execute_result
+92,code,"meanNYA = career_stats_filtered[""NYA""].mean()
+
+meanNYA",A11,Addressed in linked audit issue(s),execute_result
+93,code,"plt.figure(figsize=(12,6))
+
+ax4=sns.barplot(data=top10NYA,x=""Player"",y=""NYA"",hue=""Player"",legend=False,palette='Spectral')
+
+plt.title(""Top 10 Quarterbacks by AVG NY/A (01-23)"")
+plt.xlabel(""Player"")
+plt.ylabel(""Average NY/A"")
+plt.xticks(rotation=45)
+for container in ax4.containers:
+    ax4.bar_label(",A11,Addressed in linked audit issue(s),display_data
+94,code,"#The chart shows the Top 10 quarterbacks by average NY/A between 2001 and 2023.
+
+#NY/A – Net Yards per Attempt measures how many net passing yards a quarterback generates per passing attempt while also accounting for yards lost through sacks.
+#Therefore, unlike Completion %, it considers not only wh",A12,Addressed in linked audit issue(s),
+95,code,"#--Rank by career AVG ANY/A	
+
+top10ANYA = career_stats_filtered.sort_values(by=""ANYA"",ascending=False).head(10)
+
+top10ANYA",A11,Addressed in linked audit issue(s),execute_result
+96,code,"meanANYA = career_stats_filtered[""ANYA""].mean()
+
+meanANYA",A11,Addressed in linked audit issue(s),execute_result
+97,code,"plt.figure(figsize=(12,6))
+
+ax5=sns.barplot(data=top10ANYA,x=""Player"",y=""ANYA"",hue=""Player"",legend=False,palette=""Spectral"")
+
+plt.title(""Top 10 Quarterbacks by AVG ANY/A (01-23)"")
+plt.xlabel(""Player"")
+plt.ylabel(""Average ANY/A"")
+plt.xticks(rotation=45)
+for container in ax5.containers:
+    ax5.bar_la",A11,Addressed in linked audit issue(s),display_data
+98,code,"#The chart shows the Top 10 quarterbacks by average ANY/A between 2001 and 2023.
+
+#ANY/A – Adjusted Net Yards per Attempt is an advanced passing-efficiency metric that estimates the value generated from each passing attempt. 
+#Unlike NY/A, it accounts not only for passing yards and sacks but also fo",A12,Addressed in linked audit issue(s),
+99,code,"#Conclusions – Who Are the Greatest Quarterbacks?
+
+#The analysis shows that no single quarterback dominates every metric, meaning that “greatest quarterback” cannot be determined using only one statistic.
+
+#Patrick Mahomes stands out in efficiency. He leads in ANY/A and TD per Game and ranks near th",A12,Addressed in linked audit issue(s),
+100,code,"#Main Conclusion
+
+#The results demonstrate why a single metric is not enough to identify the greatest quarterback.
+#Total TDs favor long careers, while metrics such as TD per Game and ANY/A focus more on production rate and efficiency.
+
+#Therefore, combining normalized performance metrics into a sin",A12,Addressed in linked audit issue(s),
+101,code,"#QB Score = (25% Rating ,25% ANY/A ,15% NY/A ,15% Completion % ,10% TD ,10% TD Per Game)
+# Instead of ranking by just one metric, create a weighted score (QB Score) based on all metrics.",A13,Addressed in linked audit issue(s),
+102,code,"career_stats_filtered[""QB_Score""] = (career_stats_filtered[""Rate""]*0.25+career_stats_filtered[""ANYA""]*0.25+ career_stats_filtered[""NYA""]*0.15+career_stats_filtered[""Completion""]*0.15+career_stats_filtered[""TD_per_Game""]*0.10+career_stats_filtered[""TD""]*0.10)
+
+career_stats_filtered.sort_values(by=""QB",A13,Addressed in linked audit issue(s),execute_result
+103,code,"top10QbScore = career_stats_filtered.sort_values(by=""QB_Score"",ascending=False).head(10)
+
+top10QbScore",A13,Addressed in linked audit issue(s),execute_result
+104,code,"meanQB_Score = career_stats_filtered[""QB_Score""].mean()
+
+meanQB_Score",A13,Addressed in linked audit issue(s),execute_result
+105,code,"plt.figure(figsize=(12,6))
+
+ax6=sns.barplot(data=top10QbScore,x=""Player"",y=""QB_Score"",hue=""Player"",legend=False,palette=""Spectral"")
+
+plt.title(""Top 10 Quarterbacks by Suggested QB Score (01-23)"")
+plt.xlabel(""Player"")
+plt.ylabel(""QB Score"")
+plt.xticks(rotation=45)
+for container in ax6.containers:
+   ",A13,Addressed in linked audit issue(s),display_data
+106,code,"#The chart presents the Top 10 quarterbacks according to the proposed QB Score for the 2001–2023 period.
+#Unlike the previous charts, which examined each statistic separatelyת
+#the QB Score is a composite performance measure designed to combine quarterback efficiency, accuracy, and production into a","A12, A13",Addressed in linked audit issue(s),
+107,code,"#Normalized QB Score
+metrics = [""Rate"", ""ANYA"", ""NYA"", ""Completion"", ""TD"", ""TD_per_Game""]
+
+for col in metrics:
+    career_stats_filtered[col + ""_Norm""] = (career_stats_filtered[col] / career_stats_filtered[col].max()) * 100",A14,Addressed in linked audit issue(s),
+108,code,"career_stats_filtered[""QB_Score""] = (career_stats_filtered[""Rate_Norm""] * 0.25 +career_stats_filtered[""ANYA_Norm""] * 0.25 +career_stats_filtered[""NYA_Norm""] * 0.15 +career_stats_filtered[""Completion_Norm""] * 0.15 +career_stats_filtered[""TD_Norm""] * 0.10 +career_stats_filtered[""TD_per_Game_Norm""] * 0",A14,Addressed in linked audit issue(s),
+109,code,"top10QbScore1 = career_stats_filtered.sort_values(by=""QB_Score"",ascending=False).head(10)
+top10QbScore1",A14,Addressed in linked audit issue(s),execute_result
+110,code,"meanQB_Score1 = career_stats_filtered[""QB_Score""].mean()
+
+meanQB_Score1",A14,Addressed in linked audit issue(s),execute_result
+111,code,"plt.figure(figsize=(12,6))
+
+ax7=sns.barplot(data=top10QbScore1,x=""Player"",y=""QB_Score"",hue=""Player"",legend=False,palette=""Spectral"")
+
+plt.title(""Top 10 Quarterbacks by Normalized Suggested QB Score (01-23)"")
+plt.xlabel(""Player"")
+plt.ylabel(""QB Score"")
+plt.xticks(rotation=45)
+for container in ax7.con","A14, A15",Addressed in linked audit issue(s),display_data
+112,code,"#The chart presents the Top 10 quarterbacks by Normalized QB Score between 2001 and 2023.
+#Before calculating the weighted score, all performance metrics were normalized to a common scale.
+
+#The score is based on:
+
+#QB Score = 25% Rating + 25% ANY/A + 15% NY/A + 15% Completion % + 10% TD + 10% TD pe","A12, A14",Addressed in linked audit issue(s),
+113,code,"#Conclusion
+#Cumulative statistics such as total TD are strongly influenced by career length, while Rating, Completion %, NY/A, ANY/A, and TD per Game provide additional measures of efficiency, accuracy, and production rate.
+#Therefore, combining multiple metrics provides a more balanced and compreh","A12, A14",Addressed in linked audit issue(s),
+114,code,,,Empty cell; omit,
+115,code,#Theme  – Who Are the Most Efficient Quarterbacks?,A06,Addressed in linked audit issue(s),
+116,code,"#To prevent ranking players with few pass attempts.
+efficient_df = df[(df[""Att""] >= 150) &(df[""Years_in_League""] >= 5) &(df[""G""] >= 5)]
+
+career_df = (efficient_df.groupby(""Player"").agg({""ANY/A"":""mean"",""AY/A"":""mean"",""Rate"":""mean"",""Cmp%"":""mean""}).reset_index())
+
+#top 10
+career_df.sort_values(by=[""ANY/","A03, A16",Addressed in linked audit issue(s),execute_result
+117,code,"#Weighted score ""Efficiency Score""
+career_df[""Efficiency Score""] = (career_df[""ANY/A""]*0.45+ career_df[""AY/A""]*0.35+ career_df[""Rate""]*0.20)
+
+career_df",A16,Addressed in linked audit issue(s),execute_result
+118,code,"#Weighted score ""Efficiency Score"" top 10
+career_df = career_df.sort_values(""Efficiency Score"",ascending=False)
+
+top10Effiency=career_df.head(10)
+
+top10Effiency",A16,Addressed in linked audit issue(s),execute_result
+119,code,"#The table presents the Top 10 most efficient quarterbacks according to the calculated Efficiency Score, which combines several passing-efficiency metrics.
+#[""Efficiency Score""] = (career_df[""ANY/A""]*0.45+ career_df[""AY/A""]*0.35+ career_df[""Rate""]*0.20)
+
+#Aaron Rodgers ranks first with an Efficiency",A16,Addressed in linked audit issue(s),
+120,code,"plt.figure(figsize=(12, 6))
+sns.barplot(data=top10Effiency,x=""Efficiency Score"",y=""Player"",hue=""Player"",legend=False,palette='Spectral')
+
+plt.title(""Top 10 Most Efficient Quarterbacks"")
+plt.xlabel(""Efficiency Score"")
+plt.ylabel(""Player"")
+
+plt.show()",A16,Addressed in linked audit issue(s),display_data
+121,code,"#The chart presents the Top 10 most efficient quarterbacks based on the calculated Efficiency Score, which combines ANY/A, AY/A, and Passer Rating.
+
+#Aaron Rodgers ranks first, with an Efficiency Score of approximately 27.2, followed by Drew Brees at approximately 26.6. Dak Prescott and Kirk Cousins",A16,Addressed in linked audit issue(s),
+122,code,"plt.figure(figsize=(15, 7))
+
+sns.scatterplot(data=career_df,x=""ANY/A"",y=""Rate"",hue=""Player"",legend=False,palette='Spectral')
+
+for i in range(len(top10Effiency)):
+    plt.text(top10Effiency.iloc[i][""ANY/A""],top10Effiency.iloc[i][""Rate""],top10Effiency.iloc[i][""Player""])
+
+plt.title(""Quarterback Efficie",A16,Addressed in linked audit issue(s),display_data
+123,code,"#There is a very strong positive relationship between ANY/A and Passer Rating. 
+#The points form a clear upward pattern from the bottom-left to the top-right.
+
+#This means quarterbacks with higher ANY/A generally also have higher Passer Ratings. 
+#In other words, quarterbacks who generate more adjus",A16,Addressed in linked audit issue(s),
+124,code,"#The graph shows a strong positive relationship between ANY/A and Passer Rating. 
+#The most efficient quarterbacks tend to perform well in both metrics, with Aaron Rodgers and Drew Brees standing out at the top. 
+#This supports the idea that quarterback efficiency should be evaluated by the value pr",A16,Addressed in linked audit issue(s),
+125,code,"top5Efficiency= career_df.sort_values(by=""Efficiency Score"",ascending=False).head(5)
+
+top5Efficiency",A16,Addressed in linked audit issue(s),execute_result
+126,code,"#
+#The analysis shows a strong positive relationship between ANY/A and Passer Rating. 
+#Aaron Rodgers and Drew Brees stand out as the most efficient quarterbacks, 
+#demonstrating that quarterback quality is not only about total production, 
+#but also about how much value a player generates from each",A16,Addressed in linked audit issue(s),
+127,code,,,Empty cell; omit,
+128,code,#Theme – At what age do QB have the best preformance through the career?,A06,Addressed in linked audit issue(s),
+129,code,"#Filter unique players by age 
+players_by_age = df.groupby(""Age"")[""Player""].nunique()
+
+players_by_age",A17,Addressed in linked audit issue(s),execute_result
+130,code,"plt.figure(figsize=(8,8))
+
+plt.pie(players_by_age,labels=players_by_age.index,autopct=""%1.1f%%"")
+
+plt.title(""Distribution of Quarterbacks by Age Group"")
+
+plt.show()",A17,Addressed in linked audit issue(s),display_data
+131,code,"plt.figure(figsize=(12,8))
+
+wedges, texts, autotexts = plt.pie(players_by_age,labels=players_by_age.index,autopct=""%1.1f%%"",startangle=90)
+
+plt.legend(wedges,[f""Age {age}: {players_by_age[age]} Players""
+     for age in players_by_age.index],title=""Age / Number of Players"",loc=""center left"",bbox_to_a",A17,Addressed in linked audit issue(s),display_data
+132,code,"#The pie chart shows the distribution of quarterbacks in the dataset by age.
+#Each slice represents a specific age, while the percentage indicates that age's share of the observations shown.
+
+#The distribution shows that quarterbacks are concentrated mainly in their mid-to-late 20s.
+#Ages 24–28 acco",A17,Addressed in linked audit issue(s),
+133,code,"age_rating = (df[df[""GS""] >= 5].groupby(""Age"").agg(Average_Rating=(""Rate"", ""mean""),Players=(""Player"", ""nunique"")).reset_index())
+
+age_rating",A18,Addressed in linked audit issue(s),execute_result
+134,code,"mean_21_25 = age_rating[(age_rating[""Age""] >= 21) & (age_rating[""Age""] <= 25)][""Average_Rating""].mean()
+mean_26_30 = age_rating[(age_rating[""Age""] >= 26) & (age_rating[""Age""] <= 30)][""Average_Rating""].mean()
+mean_31_35 = age_rating[(age_rating[""Age""] >= 31) & (age_rating[""Age""] <= 35)][""Average_Rati",A18,Addressed in linked audit issue(s),
+135,code,"plt.figure(figsize=(12,6))
+
+plt.plot(age_rating[""Age""],age_rating[""Average_Rating""],marker=""o"")
+
+for i in range(len(age_rating)):
+    plt.text(age_rating[""Age""][i],age_rating[""Average_Rating""][i] + 1,f'n={age_rating[""Players""][i]}',ha=""center"",fontsize=9)
+
+plt.title(""Average QB Rating by Age"")
+plt.x",A18,Addressed in linked audit issue(s),display_data
+136,code,"#The graph shows the relationship between quarterback age and average Passer Rating. 
+#Each point represents the average Rating at a specific age, while n indicates the number of quarterbacks used to calculate that average. The dashed lines represent the average Rating for each five-year age range.
+",A18,Addressed in linked audit issue(s),
+137,code,"age_td = (df[df[""GS""] >= 5].groupby(""Age"").agg(Average_TD=(""TD"", ""mean""),Players=(""Player"", ""nunique"")).reset_index())
+
+age_td",A18,Addressed in linked audit issue(s),execute_result
+138,code,"meanTD_21_25 = age_td[(age_td[""Age""] >= 21) & (age_td[""Age""] <= 25)][""Average_TD""].mean()
+meanTD_26_30 = age_td[(age_td[""Age""] >= 26) & (age_td[""Age""] <= 30)][""Average_TD""].mean()
+meanTD_31_35 = age_td[(age_td[""Age""] >= 31) & (age_td[""Age""] <= 35)][""Average_TD""].mean()
+meanTD_36_40 = age_td[(age_td[",A18,Addressed in linked audit issue(s),
+139,code,"plt.figure(figsize=(12,6))
+
+plt.plot(age_td[""Age""],age_td[""Average_TD""],marker=""o"")
+
+for i in range(len(age_td)):
+    plt.text(age_td[""Age""][i],age_td[""Average_TD""][i] + 0.7,f'n={age_td[""Players""][i]}',ha=""center"",fontsize=9)
+
+plt.title(""Average Touchdowns by Age"")
+plt.xlabel(""Age"")
+plt.ylabel(""Aver",A18,Addressed in linked audit issue(s),display_data
+140,code,"#The graph shows the relationship between quarterback age and average touchdown production (TD). 
+#Each point represents the average number of touchdowns at a specific age, n indicates the number of quarterbacks in the sample, and the dashed lines show the average TD for each five-year age range.
+
+#",A18,Addressed in linked audit issue(s),
+141,code,"age_anya = (df[df[""GS""] >= 5].groupby(""Age"").agg(Average_ANYA=(""ANY/A"", ""mean""),Players=(""Player"", ""nunique"")).reset_index())",A18,Addressed in linked audit issue(s),
+142,code,"meanANYA_21_25 = age_anya[(age_anya[""Age""] >= 21) & (age_anya[""Age""] <= 25)][""Average_ANYA""].mean()
+meanANYA_26_30 = age_anya[(age_anya[""Age""] >= 26) & (age_anya[""Age""] <= 30)][""Average_ANYA""].mean()
+meanANYA_31_35 = age_anya[(age_anya[""Age""] >= 31) & (age_anya[""Age""] <= 35)][""Average_ANYA""].mean()
+",A18,Addressed in linked audit issue(s),
+143,code,"plt.figure(figsize=(12,6))
+
+plt.plot(
+    age_anya[""Age""],
+    age_anya[""Average_ANYA""],
+    marker=""o""
+)
+
+# Show number of players
+for i in range(len(age_anya)):
+    plt.text(age_anya[""Age""][i],age_anya[""Average_ANYA""][i] + 0.1,f'n={age_anya[""Players""][i]}',ha=""center"",fontsize=9)
+
+plt.title(""Avera",A18,Addressed in linked audit issue(s),display_data
+144,code,"#The graph shows the relationship between quarterback age and average passing efficiency measured by ANY/A (Adjusted Net Yards per Attempt).
+#ANY/A incorporates passing yards, touchdowns, interceptions, and sacks, making it a useful measure of overall passing efficiency rather than just production.
+",A18,Addressed in linked audit issue(s),
+145,code,"#At What Age Do Quarterbacks Perform Their Best?
+
+#The analysis examines how quarterback performance changes with age by comparing the average Passer Rating and Touchdowns for each age group. 
+#To ensure reliable results, only seasons in which quarterbacks started at least five games were included.
+",A18,Addressed in linked audit issue(s),
+146,code,,,Empty cell; omit,
+147,code,#Theme - Do more games lead to better performance?,A06,Addressed in linked audit issue(s),
+148,code,"#Games vs Yards
+plt.figure(figsize=(8,6))
+
+sns.regplot(data=filteredDf, x='G',y='Yds',scatter_kws={'alpha':0.5})
+
+plt.title('Games vs Passing Yards')
+plt.xlabel('Games Played')
+plt.ylabel('Passing Yards')
+plt.grid(True)
+
+plt.show()",A19,Addressed in linked audit issue(s),display_data
+149,code,"#The graph shows a strong positive relationship between the number of games played and total passing yards.
+
+#The upward regression line indicates that quarterbacks who play more games generally accumulate more passing yards. 
+#For example, quarterbacks playing around 6–8 games typically record much",A19,Addressed in linked audit issue(s),
+150,code,"#Games vs Touchdowns
+plt.figure(figsize=(8,6))
+
+sns.regplot(data=filteredDf,x='G',y='TD',scatter_kws={'alpha':0.5})
+
+plt.title('Games vs Touchdowns')
+plt.xlabel('Games Played')
+plt.ylabel('Touchdowns')
+plt.grid(True)
+
+plt.show()",A19,Addressed in linked audit issue(s),display_data
+151,code,"#A similar positive relationship appears between games played and touchdowns.
+#The regression line increases from approximately 4 touchdowns at six games to around 26–27 touchdowns at 17 games.
+
+#There is considerable variation among quarterbacks who play the same number of games. 
+#For example, amo",A19,Addressed in linked audit issue(s),
+152,code,"#Games vs Passer Rating
+plt.figure(figsize=(8,6))
+
+sns.regplot(data=filteredDf,x='G',y='Rate',scatter_kws={'alpha':0.5})
+
+plt.title('Games vs Passer Rating')
+plt.xlabel('Games Played')
+plt.ylabel('Passer Rating')
+plt.grid(True)
+
+plt.show()",A19,Addressed in linked audit issue(s),display_data
+153,code,"#This graph tells a different story.
+
+#There is still a positive trend, but the regression line rises much more gradually. 
+#Quarterbacks playing more games tend to have somewhat higher passer ratings, but the relationship is much weaker than for yards or touchdowns.
+
+#There is also substantial vari",A19,Addressed in linked audit issue(s),
+154,code,"#Games vs ANY/A
+plt.figure(figsize=(8,6))
+
+sns.regplot(data=filteredDf,x='G',y='ANY/A',scatter_kws={'alpha':0.5})
+
+plt.title('Games vs ANY/A')
+plt.xlabel('Games Played')
+plt.ylabel('Passer Rating')
+plt.grid(True)
+
+plt.show()","A09, A19",Addressed in linked audit issue(s),display_data
+155,code,"#The graph shows the relationship between Games Played and ANY/A (Adjusted Net Yards per Attempt).
+
+#ANY/A is an advanced efficiency metric that measures how effectively a quarterback generates yards per passing attempt while also accounting for touchdowns, interceptions, and sacks.
+#Therefore, it i",A19,Addressed in linked audit issue(s),
+156,code,"corr = filteredDf[['G','Yds','TD','Rate','ANY/A']].corr()
+
+print(corr)",A19,Addressed in linked audit issue(s),stream
+157,code,"print(""Games vs Yards :"", filteredDf['G'].corr(df['Yds']))
+print(""Games vs TD    :"", filteredDf['G'].corr(df['TD']))
+print(""Games vs Rating:"", filteredDf['G'].corr(df['Rate']))
+print(""Games vs ANY/A:"", filteredDf['G'].corr(df['ANY/A']))",A19,Addressed in linked audit issue(s),stream
+158,code,"plt.figure(figsize=(8,6))
+
+corr = filteredDf[['G', 'Yds', 'TD', 'Rate', 'ANY/A']].corr()
+
+sns.heatmap(corr,annot=True,cmap='coolwarm',fmt='.2f')
+
+plt.title('Correlation Between Games and QB Performance')
+
+plt.show()",A19,Addressed in linked audit issue(s),display_data
+159,code,"#Do more games lead to greater success?
+
+#The three graphs suggest that the answer depends on how we define success.
+
+#There is a clear positive relationship between games played and total production. 
+#Quarterbacks who play more games generally accumulate more passing yards and touchdowns. 
+#Howeve",A19,Addressed in linked audit issue(s),
+160,code,,,Empty cell; omit,
+161,code,#Theme - Is there a corelation between quarterback performance and his salary?,A06,Addressed in linked audit issue(s),
+162,code,"#Creates a new DataFrame called value_df, containing only players/seasons that meet all three filtering conditions. It also creates a separate copy of the filtered data.
+value_df = df[(df['G'] > 5) &(df['Att'] > 100) &(df['Contract_APY'] > 0)].copy()",A20,Addressed in linked audit issue(s),
+163,code,value_df['APY_Million'] = value_df['Contract_APY'] / 1_000_000,A20,Addressed in linked audit issue(s),
+164,code,"salary_by_year = (value_df.groupby('Year')['APY_Million'].mean().reset_index())
+
+meanSalary_01_10 = salary_by_year[(salary_by_year[""Year""] >= 2001) &(salary_by_year[""Year""] <= 2010)][""APY_Million""].mean()
+
+meanSalary_11_20 = salary_by_year[(salary_by_year[""Year""] >= 2011) &(salary_by_year[""Year""] <=",A20,Addressed in linked audit issue(s),
+165,code,"#QB Salary Trends Over Time
+
+plt.figure(figsize=(12, 6))
+
+sns.lineplot(data=salary_by_year,x='Year',y='APY_Million',marker='o')
+
+plt.title('QB Salary Trends Over Time')
+plt.xlabel('Year')
+plt.ylabel('Annual Salary ($M)')
+plt.axhline(y=meanSalary_01_10,xmin=0,xmax=9/22,linestyle='--',label=f'2001-201",A20,Addressed in linked audit issue(s),display_data
+166,code,"#The graph shows the trend in average annual quarterback salaries between 2001 and 2023.
+
+#The blue line represents the average salary in each year, while the dashed horizontal lines show the average salary across three periods:
+
+#2001–2010: approximately $7.6M per year
+#2011–2020: approximately $10",A20,Addressed in linked audit issue(s),
+167,code,#Which quarterbacks received the largest contracts?,"A20, A21",Addressed in linked audit issue(s),
+168,code,"top_10_salary = (df[df['Contract_APY'] > 0].sort_values('Contract_APY', ascending=False).drop_duplicates(subset='Player', keep='first').head(10).copy())
+
+top_10_salary['APY_Million'] = (top_10_salary['Contract_APY'] / 1_000_000)
+
+top_10_salary","A20, A21",Addressed in linked audit issue(s),execute_result
+169,code,"plt.figure(figsize=(10, 6))
+
+ax = sns.barplot(data=top_10_salary,x='APY_Million',y='Player',hue=""Player"",legend=False,palette='Spectral')
+
+for container in ax.containers:
+    ax.bar_label(container,fmt='$%.1fM',padding=3)
+
+plt.title('Top 10 Highest-Paid Quarterbacks')
+plt.xlabel('Average Salary per ","A20, A21",Addressed in linked audit issue(s),display_data
+170,code,"#The graph presents the Top 10 quarterbacks with the highest average annual contract value (Contract APY) in the dataset.
+
+#Joe Burrow ranks first at $55M per year, followed by Justin Herbert ($52.5M), Lamar Jackson ($52M), and Jalen Hurts ($51M).
+
+#Even the bottom of the Top 10 represents extremely","A20, A21",Addressed in linked audit issue(s),
+171,code,"plt.figure(figsize=(12, 7))
+
+sns.regplot(data=value_df,x='Year',y='APY_Million')
+
+for _, row in top_10_salary.iterrows():
+    plt.text(row['Year'],row['APY_Million'],row['Player'],fontsize=9)
+
+plt.title('Top 10 QB Contracts – Salary Trend by Signing Year')
+plt.xlabel('Contract Signing Year')
+plt.yla","A20, A21",Addressed in linked audit issue(s),display_data
+172,code,"#The graph shows the relationship between contract signing year and a quarterback's average annual contract value (APY) throughout the dataset.
+
+#The regression line has a clear upward slope, indicating a positive relationship between signing year and contract value.
+#In general, quarterback contrac","A20, A21",Addressed in linked audit issue(s),
+173,code,filteredDf['APY_Million'] = filteredDf['Contract_APY'] / 1_000_000,A20,Addressed in linked audit issue(s),stream
+174,code,"# APY and Passer rating corelattion
+sns.regplot(data=filteredDf,x='APY_Million',y='Rate',scatter_kws={'alpha':0.5})
+
+plt.xlabel('Average Salary per Year (M)')
+plt.ylabel('Passer Rating')
+plt.title('QB Salary vs Passer Rating')
+plt.show()",A20,Addressed in linked audit issue(s),display_data
+175,code,"#The graph shows the relationship between a quarterback's average annual salary (Contract APY) and Passer Rating, a measure of passing performance.
+
+#The regression line slopes upward, indicating a positive relationship between salary and Passer Rating.
+#In general, higher-paid quarterbacks tend to ",A20,Addressed in linked audit issue(s),
+176,code,"# ANY/A and Passer rating corelattion
+sns.regplot(data=filteredDf,x='APY_Million',y='ANY/A',scatter_kws={'alpha':0.5})
+
+plt.xlabel('Average Salary per Year')
+plt.ylabel('ANY/A')
+plt.title('QB Salary vs Passing Efficiency')
+plt.show()",A20,Addressed in linked audit issue(s),display_data
+177,code,"#The graph shows the relationship between a quarterback's average annual salary and passing efficiency (ANY/A).
+
+#The upward-sloping regression line indicates a positive relationship between salary and passing efficiency. 
+#In general, higher-paid quarterbacks tend to have higher ANY/A.
+
+#However, t",A20,Addressed in linked audit issue(s),
+178,code,"#Quarterback salary has a positive relationship with passing efficiency: higher-paid quarterbacks tend to produce better ANY/A results. However, the wide distribution of observations shows that salary alone is not a strong predictor of efficiency. 
+#Several lower-paid quarterbacks outperform much mo",A20,Addressed in linked audit issue(s),
+179,code,"salary_perf = value_df[['APY_Million', 'Rate', 'ANY/A', 'Cmp%', 'TD', 'Yds']]
+
+plt.figure(figsize=(8, 6))
+
+sns.heatmap(salary_perf.corr(),annot=True,fmt='.2f')
+
+plt.title('Correlation Between Salary and QB Performance')
+
+plt.show()",A20,Addressed in linked audit issue(s),display_data
+180,code,"#The heatmap shows the correlations between quarterback annual salary (APY_Million) and different performance metrics, as well as the relationships among the performance metrics themselves.
+
+#The most important finding is that salary has a positive but relatively weak relationship with all performan",,Section marker/comment; reorganized into Markdown,
+181,code,#Which quarterbacks provide the best performance relative to their salary?,A22,Addressed in linked audit issue(s),
+182,code,"filteredDf['APY_Million'] = filteredDf['Contract_APY'] / 1_000_000
+
+filteredDf['Value_For_Money'] = filteredDf['ANY/A'] / filteredDf['APY_Million']",A22,Addressed in linked audit issue(s),stream
+183,code,"top_value = (filteredDf.sort_values('Value_For_Money', ascending=False).head(10))
+
+sns.barplot(data=top_value,x='Value_For_Money',y='Player',hue=""Player"",legend=False,palette='Spectral')
+
+plt.title('Top 10 QBs – Best Value for Money')
+plt.xlabel('ANY/A per $1M Salary')
+plt.ylabel('')
+plt.show()",A22,Addressed in linked audit issue(s),display_data
+184,code,"#This graph ranks the Top 10 quarterbacks who provided the best passing efficiency relative to their salary.
+#The metric is:
+#Value for Money = ANY/A ÷ Annual Salary ($M)
+
+#So, a higher value means the quarterback generated more passing efficiency for every $1 million of annual salary.
+
+#What the gr",,Section marker/comment; reorganized into Markdown,
+185,code,"#The code is used to calculate a quarterback's Expected ANY/A based on his annual salary.
+#np.polyfit() calculates the best-fitting linear regression line between:
+#APY_Million – annual salary in millions (X).
+#ANY/A – actual passing efficiency (Y).
+#1 – specifies a first-degree polynomial, meaning ",A23,Addressed in linked audit issue(s),
+186,code,value_df['Value_For_Money'] = (value_df['ANY/A'] - value_df['Expected_ANY/A']),A23,Addressed in linked audit issue(s),
+187,code,"top_value = (value_df.sort_values('Value_For_Money', ascending=False).head(10))",A23,Addressed in linked audit issue(s),
+188,code,"top_value[['Player','APY_Million','ANY/A','Expected_ANY/A','Value_For_Money']]",A23,Addressed in linked audit issue(s),execute_result
+189,code,"#identifying high-value QB-season observations
+plt.figure(figsize=(12, 7))
+
+sns.regplot(data=value_df,x='APY_Million',y='ANY/A')
+
+for _, row in top_value.iterrows():
+    plt.text(row['APY_Million'],row['ANY/A'],row['Player'],fontsize=9)
+
+plt.xlabel('Average Salary per Year ($M)')
+plt.ylabel('ANY/A')",A23,Addressed in linked audit issue(s),display_data
+190,code,"#The graph compares average annual quarterback salary with passing efficiency (ANY/A) and highlights QB seasons that produced the greatest performance above salary expectations.
+
+#The regression line represents the Expected ANY/A at each salary level. 
+#The value-for-money measure is: Value For Mone",A23,Addressed in linked audit issue(s),
+191,code,"top_value1 = (value_df.sort_values('Value_For_Money', ascending=False).drop_duplicates(subset='Player', keep='first').head(10))
+
+top_value1",A23,Addressed in linked audit issue(s),execute_result
+192,code,"top_value1[['Player','Year','APY_Million','ANY/A','Expected_ANY/A','Value_For_Money']]",A23,Addressed in linked audit issue(s),execute_result
+193,code,"#identifying unique high-value QB-season observations
+
+plt.figure(figsize=(12, 7))
+
+sns.regplot(data=value_df,x='APY_Million',y='ANY/A')
+
+for _, row in top_value1.iterrows():
+    plt.text(row['APY_Million'],row['ANY/A'],row['Player'],fontsize=9)
+
+plt.xlabel('Average Salary per Year ($M)')
+plt.ylabel",A23,Addressed in linked audit issue(s),display_data
+194,code,"#This graph examines the relationship between average annual QB salary and passing efficiency (ANY/A),
+#while highlighting the unique quarterbacks whose best seasons produced the greatest performance above salary expectations.
+
+#The regression line represents the Expected ANY/A based on salary.
+#The",,Section marker/comment; reorganized into Markdown,
+195,code,,,Empty cell; omit,
+196,code,"#The overall analysis of NFL quarterback data from 2001–2023 shows that quarterback performance cannot be explained by a single statistic.
+#Instead, it is influenced by a combination of efficiency, production, experience, age, and playing volume.
+#Metrics such as Passer Rating, ANY/A, NY/A, and Comp",A24,Addressed in linked audit issue(s),
+197,code,,,Empty cell; omit,
+198,code,,,Empty cell; omit,
