@@ -1,86 +1,116 @@
-# NFL Quarterback Performance Analysis – Python
+# NFL Quarterback Performance Analysis
 
-[Portfolio](../../README.md) · [Notebook](Project%203%20NFL%20Passing%20Statistics%20Analysis%20%28Shachar%20Givon%29%20.ipynb) · [Dataset](Project%203%20NFL%20Passing%20Statistics%20Analysis%20%28Shachar%20Givon%29.xlsx) · [Bilingual data dictionary](project%203%20-%20Table%20explanation%20%28Shachar%20Givon%29.xlsx)
+A Python/pandas analysis of NFL passing production, efficiency and contract associations across available 2001–2023 seasons.
 
-**Deliverable:** an exploratory notebook, Excel dataset and Hebrew/English field guide covering NFL passing performance and contract comparisons.
+**Recommended version:** [Review the corrected notebook](nfl-quarterback-analysis-corrected.ipynb), with executed results and charts.
 
-## Business / Research Question
+## Business / Research Questions
 
-How do passing performance, production and efficiency vary across seasons, teams, players, age groups and contract values?
+- How do passing production and efficiency differ across players and observed seasons?
+- How do pooled career rates differ from equally weighted season averages?
+- How sensitive is the QB Score to eligibility and overlapping metrics?
+- How is historical-attributed contract APY associated with passing efficiency?
 
 ## Dataset
 
-The supplied workbook's `NFL_Data` sheet contains **2,246 records and 36 columns**, covering **2001–2023**, with no duplicate Player/Year pairs found in this review. It includes passing and sack metrics, age, league-entry dates and contract fields. The population contains passing players, not exclusively verified quarterbacks.
+**2,246 player-season records · 36 columns · 22 observed seasons · 2001–2023, excluding 2007.**
 
-The workbook also includes six audit/summary sheets. These record earlier enrichment and correction steps; some retain counts from a 2,350-row version and do not reconcile with the current sheet. Source labels include OverTheCap contract history and **2026 Spotrac rookie-scale estimates applied to historical records**. Source labels are retained as supplied and have not been independently verified.
+The supplied Excel workbook contains passing statistics and contract fields, supported by a bilingual data dictionary. There are no duplicate Player/Year keys. A position column is unavailable, so participation filters identify passing players rather than verified quarterbacks. Career comparisons cover available qualifying seasons, not complete careers.
 
-The separate dictionary explains 31 fields in Hebrew and English. It predates the contract additions and calls the season-length field `Season_Games`, while the dataset uses `Games_In_Season`.
+## Python / pandas Methodology
 
-## Tools
+Use pandas to validate dates, missing values and player-season keys; filter explicit cohorts; aggregate counts; and check merge cardinality. NumPy supports numerical operations and descriptive line fitting; Matplotlib presents the results.
 
-Python, pandas, NumPy, Matplotlib and Seaborn. The XLSX files provide input data and a data dictionary for this Python project; they do not demonstrate processing or analysis in Excel. The notebook imports pyodbc and pandasql but does not demonstrate a database connection or SQL execution. SQL Server/pyodbc are demonstrated in the separate [Northwind project](../northwind-analysis/README.md).
-
-## Data Preparation
-
-- Load the workbook with `pandas.read_excel`, inspect types, shape and missing values.
-- Convert birth and league-entry dates, derive years in the league and career-stage groups.
-- Fill separate estimated contract columns with year-specific medians and flag originally missing contract values.
-- Apply analysis-specific participation filters, group and merge data, and construct career summaries.
-
-Contract analysis later uses `Contract_APY`, not the median-filled `Contract_APY_Estimated`. The original APY field already includes some rookie-scale estimates, so it must not be described as entirely observed historical salary.
-
-## Analysis
-
-| Theme | Implemented method |
-| --- | --- |
-| Season trends | Grouped annual means and totals; line charts |
-| Team comparison | Player/team groups with at least five qualifying records |
-| Career rankings | At least five qualifying seasons; production and efficiency metrics |
-| Composite scoring | Weighted metrics, then normalization by each metric's maximum |
-| Age and experience | Age-group summaries and career-stage derivation |
-| Playing volume | Correlations and regression plots |
-| Contract value | APY comparisons, correlations, NumPy linear fit and residual rankings |
+Career efficiency is calculated from **pooled counts** rather than averaging season percentages. Career comparisons require games played > 5, attempts > 30 and at least five qualifying observed seasons. Trend and contract analyses use their own documented participation thresholds. Contract estimates are separated from historical-attributed values; sensitivity checks assess eligibility, score components and contract reconciliation.
 
 ## Key Metrics
 
-Passer rating, completion percentage and ANY/A are averaged across qualifying records, rather than recomputed from pooled attempts. Touchdowns are summed. TD per game is total TD divided by total games in the selected records.
+| Metric | What it measures |
+| --- | --- |
+| Passer rating and completion % | Passing efficiency and the share of attempts completed, calculated from pooled counts |
+| ANY/A and NY/A | Adjusted net yards and net yards per attempt, including sacks in the denominator |
+| TD and TD/game | Total passing touchdowns and touchdowns per game in qualifying observations |
+| QB Score | A normalized weighted comparison of efficiency and production; subjective, with overlapping inputs |
+| Contract APY | Average contract value per year in nominal USD; not salary paid, cap charge or ROI |
 
-The normalized QB Score combines rating (25%), ANY/A (25%), NY/A (15%), completion percentage (15%), TD (10%) and TD/game (10%) after scaling each by its selected-sample maximum. These are exploratory choices, not a validated player-rating system.
+## Key Findings
 
-Two different value measures are explored: ANY/A per APY million, and actual ANY/A minus a fitted salary-based expectation. Contract APY is not realized annual pay, and neither measure establishes financial return on investment.
+Career rankings use **75 eligible players** and available qualifying seasons; era and contract results use their respective cohorts.
 
-## Key Insights
-
-The following observations were checked against saved outputs and independently recalculated from the supplied workbook using the same relevant filters. They describe this sample, not full career records or causal effects.
-
-- With `G > 5`, `Att > 30` and at least five qualifying seasons, Patrick Mahomes leads the mean passer-rating table at **103.93**, narrowly ahead of Aaron Rodgers at **103.83** (cell 75).
-- Tom Brady leads the selected touchdown totals with **599**, while Mahomes leads TD/game at **2.31** (cells 79 and 83). Cumulative production and production rates yield different rankings.
-- With `G > 5` and `Att > 10`, games played correlate more strongly with yards (**0.838**) than with passer rating (**0.383**) (cell 156). Association does not establish that playing more games improves ability.
-
-Cell references count all 198 notebook cells from the top.
+- **Aaron Rodgers leads pooled passer rating (103.81); Patrick Mahomes leads pooled ANY/A (7.77).**
+- **Tom Brady leads touchdown production with 599 passing TDs.** This is an observed qualifying-season total, not a full-career total.
+- **Aaron Rodgers leads the exploratory normalized QB Score (94.23).** Subjective weights and overlapping inputs limit interpretation.
+- **Pooled ANY/A is 5.59 in observed 2001–2010 seasons and 6.23 in 2011–2020.** This descriptive comparison has unequal coverage because 2007 is missing.
+- **Contract APY and ANY/A have Pearson r = 0.272** across 627 reconciled, source-labeled historical player-seasons. This is an association, without a significance or causal claim.
 
 ## Visualizations
 
-![Saved NFL passer-rating ranking](../../assets/nfl-cell-77.png)
+**Passing efficiency over time.** The gap makes the missing 2007 season visible.
 
-*Unmodified saved chart from cell 77. The filters and averaging method above apply.*
+![Observed season efficiency trend](assets/performance-trend.png)
 
-![Saved NFL performance correlations](../../assets/nfl-cell-158.png)
+**Career efficiency comparison.** Pooled ANY/A compares production per passing opportunity, including sacks.
 
-*Unmodified saved chart from cell 158.*
+![Pooled passing efficiency](assets/efficiency-comparison.png)
 
-## Technical Skills Demonstrated
+**Exploratory QB Score.** The comparison combines efficiency and production; total TD retains a longevity preference.
 
-DataFrame inspection, missing-value assessment, datetime conversion, derived columns, median imputation, filtering, groupby/aggregation, merges, ranking, normalization, correlation analysis, NumPy linear fitting and Matplotlib/Seaborn visualizations.
+![Exploratory QB Score](assets/qb-score-comparison.png)
 
-## Reproducibility and Review Findings
+**Contract relationship.** Historical-attributed APY is compared with season efficiency; estimates and reconciliation flags are excluded.
 
-Download the notebook and dataset into the same directory and launch Jupyter there. The notebook reads the dataset by its original filename. It imports pandas, NumPy, Seaborn, Matplotlib, pyodbc and pandasql; reading XLSX also requires a compatible Excel reader such as openpyxl. Package versions are not supplied. The 23 MB notebook may be easier to inspect locally than in GitHub's preview.
+![Historical-attributed APY and efficiency](assets/contract-relationship.png)
 
-The full notebook was not rerun. Original code and outputs are preserved. Before relying on all conclusions:
-- Cells 31, 34, 37, 40, 43, 46 and 49 combine a `season_stats` mask with a `df` mask. Index alignment invalidates the intended decade selection.
-- Some narrative comments disagree with current outputs: cell 78 names Rodgers first, while cell 75 and its chart place Mahomes first.
-- Cell 111 draws its benchmark at the old unnormalized mean while labeling the normalized mean.
-- Cell 171 labels the x-axis signing year but plots season `Year`.
-- Reconcile workbook audit counts, validate player identities and distinguish observed contracts from 2026-based estimates before drawing salary conclusions.
-- Filters based on games/attempts do not verify player position. Team associations, age patterns and salary correlations do not establish causation.
+## Limitations
+
+- **Coverage and identity:** 2007 is missing and career windows are incomplete. No position/player IDs are supplied. There are **51 DOB/age inconsistencies**; age summaries remain provisional. The ambiguous first-down field has **1,689 fractional values** and is excluded from metrics.
+- **Contract provenance and missingness:** 1,082 rows are source-labeled historical, 222 are 2026 rookie-scale estimates and 942 are missing. Historical attribution is not independently verified record by record. Estimates are excluded from historical comparisons; missingness is nonrandom. APY is not inflation- or salary-cap-adjusted, and effective signing dates are unavailable.
+- **Subjective scoring:** QB Score weights overlap conceptually, depend on the comparison cohort and retain longevity influence. The score is not a validated measure of player ability.
+- **Selection and survivorship:** Participation and career-length filters select which players remain. Age comparisons are cross-sectional; team relocation codes are not harmonized. Passing metrics omit rushing, opponents, offensive line, scheme and game state.
+- **No causal claims:** Repeated players/contracts and same-season information limit interpretation. No statistical significance, causal effects or out-of-sample predictive accuracy are claimed.
+
+## Explore the Project
+
+| Resource | Purpose |
+| --- | --- |
+| **[Corrected notebook — recommended](nfl-quarterback-analysis-corrected.ipynb)** | Full analysis, methodology, executed tables and charts |
+| [Detailed audit](AUDIT.md) | 28 grouped issues covering the 198-cell original analysis, corrections and finding impacts |
+| [Original analysis — retained for transparency](Project%203%20NFL%20Passing%20Statistics%20Analysis%20%28Shachar%20Givon%29%20.ipynb) | Unmodified original notebook for comparison |
+| [Input workbook](Project%203%20NFL%20Passing%20Statistics%20Analysis%20%28Shachar%20Givon%29.xlsx) · [Data dictionary](project%203%20-%20Table%20explanation%20%28Shachar%20Givon%29.xlsx) | Unmodified source files |
+| [Validation and result tables](tables/) · [Cell-by-cell review](cell-audit.csv) | Detailed controls, cohort counts, sensitivity results and audit coverage |
+
+<details>
+<summary>Technical methods and reproducibility</summary>
+
+### Cohort definitions
+
+| Analysis | Eligibility |
+| --- | --- |
+| Season trends and playing-volume correlations | G > 5 and Att > 10 |
+| Career and efficiency | G > 5 and Att > 30; at least 5 qualifying observed seasons |
+| Age summaries | GS ≥ 5 |
+| Contract relationship | G > 5 and Att > 100; source-labeled historical, positive, active interval and APY reconciliation |
+
+G means games played; GS means games started; Att means pass attempts. Sensitivity tables compare attempt thresholds and 3/5/7-season eligibility. Multi-team player-season totals remain in player analyses but are excluded from team attribution.
+
+### Metric definitions
+
+Completion % = 100 × completions / attempts. ANY/A = (yards + 20 × TD − 45 × interceptions − sack yards) / (attempts + sacks). NY/A = (yards − sack yards) / (attempts + sacks). Passer rating uses the standard four-component formula, with each component clipped to [0, 2.375], recomputed from pooled counts. TD/game uses games from the same observations as the TD numerator.
+
+Definitions were checked against the [Pro Football Reference glossary](https://www.pro-football-reference.com/about/glossary.htm) and [Pro Football Hall of Fame](https://www.profootballhof.com/news/nfl-s-passer-rating).
+
+QB Score weights are rating 25%, ANY/A 25%, NY/A 15%, completion percentage 15%, total TD 10% and TD/game 10%. Each input is divided by its eligible-cohort maximum and multiplied by 100; higher is better for every input. Metric correlations and leave-one-component-out ranks expose sensitivity. Raw-unit scores are retired.
+
+### Contract and validation details
+
+Each of the five contract fields has 942 missing observations. Thirty-two source rows fail APY ≈ value/length within $1/year. The main analysis excludes these flags; including them yields 653 historical player-seasons and r = 0.266 instead of 627 and r = 0.272. Signing-year summaries use actual signing year and deduplicated contract tuples. Fitted residuals describe the fitting sample, not predictions.
+
+The bilingual dictionary defines 31 fields. Six workbook audit/summary sheets describe earlier enrichment; old 2,350-row counts are not current controls. Current validation includes source-file hashes, formula reconciliation, key uniqueness and merge cardinality. Negative passing yards/ANY/A and trade-related games above a team schedule are not automatically deleted.
+
+### Run the analysis
+
+Use Python 3.12 and install [requirements.txt](requirements.txt), then run `python verify_notebook.py` from this directory. The [verification script](verify_notebook.py) executes the corrected notebook in a fresh process and checks its format and assertions. Alternatively, open the corrected notebook in Jupyter and run all cells from this directory or the repository root.
+
+Execution regenerates result tables and [PNG previews](assets/). It does not edit the original notebook or XLSX files. Additional tools are openpyxl for reading XLSX and IPython/Jupyter.
+
+</details>
