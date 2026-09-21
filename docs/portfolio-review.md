@@ -4,9 +4,9 @@
 
 ## Review outcome
 
-The portfolio now introduces Shachar's career transition, target roles in Germany, stated tools and languages, and provides direct access to the available source. The two SQL projects and Northwind notebook are the substantial reviewable work. NFL Python and Superstore await source files.
+The portfolio now introduces Shachar's career transition, target roles in Germany, stated tools and languages, and provides direct access to the available source. The two SQL projects and Northwind notebook are the substantial reviewable work. NFL Python source, two Excel workbooks and the Superstore package are now supplied.
 
-The review inspected every tracked file, notebook source and saved output, including all eight embedded charts. It did not run SQL Server or re-execute Python.
+The review inspected every tracked file, notebook source and saved output, including all eight embedded charts. It did not run SQL Server or re-execute the full notebooks. Selected NFL calculations were independently checked against the supplied workbook.
 
 ## Technical findings
 
@@ -25,12 +25,12 @@ These findings are documented without changing analytical logic. No employer ach
 
 ## Input still needed
 
-- Existing NFL Python notebook/scripts and the dataset source.
-- Existing Power BI/Superstore report or accessible link, dataset source and screenshots/export.
-- An existing Excel sample if Excel work should be demonstrated.
+- NFL data provenance and reconciliation of stale audit summaries.
+- Power BI screenshots/PDF, measure expressions and source/refresh information.
+- A formula-based Excel analysis, if you want to demonstrate skills beyond structured data and documentation.
 - Database provenance/import instructions and environment/package versions for reproducible runs.
 
-Power BI, DAX and Excel are included as user-stated skills. No project-specific implementation is asserted without files. Languages are listed as supplied: Hebrew (Native), English and German (A1), without an invented English proficiency level.
+Power BI report definitions and Excel structure are now inspected. DAX expressions remain unverified. Languages are listed as supplied: Hebrew (Native), English and German (A1), without an invented English proficiency level.
 
 ## Changes and validation
 
@@ -41,3 +41,7 @@ Power BI, DAX and Excel are included as user-stated skills. No project-specific 
 - Checked documented Northwind findings against saved notebook tables.
 
 The separate portfolio website repository was not modified in this change.
+
+## Supplied-file follow-up
+
+The NFL guide records mixed-DataFrame period filters, narrative/output mismatches, a normalized-score benchmark issue and contract-estimate limitations. Two saved charts and selected output-backed observations are now presented. Excel contains static summaries, not demonstrated formula calculations. The Power BI guide distinguishes verified report configuration from unverified model expressions and report values.

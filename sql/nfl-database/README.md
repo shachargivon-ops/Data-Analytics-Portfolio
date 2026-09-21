@@ -10,7 +10,7 @@ How can NFL passing data be structured to support comparisons across players, te
 
 ## Dataset
 
-The script expects an existing `NFL_Passing` table containing player identity, team, season, passing statistics and sack statistics. Source data, provenance, import steps and verified date coverage are not included.
+The script expects an existing `NFL_Passing` table containing player identity, team, season, passing statistics and sack statistics. A related [NFL Excel dataset and dictionary](../../python/nfl-quarterback-analysis/README.md) are now supplied for the Python project. Their abbreviated fields differ from the SQL script; a validated mapping/import into `NFL_Passing` is still needed.
 
 The intended analytical grain links a player, team and season. Source uniqueness must be checked, including records for players associated with multiple teams.
 

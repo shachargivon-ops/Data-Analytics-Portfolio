@@ -15,7 +15,7 @@ My focus is on turning analytical questions into clear queries, structured data 
 | Business intelligence | Power BI, DAX |
 | Spreadsheets | Excel |
 
-SQL and Python capabilities are demonstrated in the linked source files. Power BI, DAX and Excel are part of my stated stack; supporting report and workbook files have not yet been shared.
+SQL, Python and Power BI report construction are demonstrated in the linked files. Excel evidence includes a structured dataset and bilingual data dictionary; these workbooks contain no formulas or charts. DAX is part of my stated stack; report measure names are visible, but their formulas still need review.
 
 ## Featured Projects
 
@@ -23,9 +23,11 @@ SQL and Python capabilities are demonstrated in the linked source files. Power B
 | --- | --- | --- |
 | **SQL Business Analysis – WideWorldImporters** | Sales trends, customer and product analysis, and rule-based churn detection; ten exercises using CTEs, JOINs, aggregations, LAG, RANK, ROW_NUMBER, PIVOT, ROLLUP and STRING_AGG | [Project guide](sql/wideworldimporters-analysis/README.md) · [SQL](SQLQuery1%20%20Project%202%20%20SQL%20Data%20Analysis%20%28Shachar%20Givon%29.sql) |
 | **NFL Quarterback Database – SQL Server** | Structure NFL passing data for player, team and season comparisons; database/table creation, keys, relational concepts and data-loading queries | [Project guide](sql/nfl-database/README.md) · [SQL](Project%201%20%E2%80%93%20Table%20Design%20%26%20Cretaion%20%28Shachar%20Givon%29.sql) |
+| **NFL Quarterback Performance Analysis – Python** | Passing trends, career rankings, age and contract comparisons; pandas preparation, correlations, normalization, NumPy linear fitting and visualizations | [Project guide and files](python/nfl-quarterback-analysis/README.md) |
+| **Power BI – Superstore** | Eight report pages covering sales, products, customers, regions, returns, shipping and growth; slicers, measures and report navigation | [Report guide and download](power-bi/superstore-analysis/README.md) |
 | **Northwind SQL-to-Python Analysis** | Explore customer sales, suppliers and order geography using SQL Server, pyodbc, pandas, Matplotlib and Seaborn; notebook includes saved tables and charts | [Project guide](python/northwind-analysis/README.md) · [Notebook](pyodbc%20class.ipynb) |
 
-**Projects awaiting source files:** [NFL Quarterback Performance Analysis – Python](python/nfl-quarterback-analysis/README.md) and [Power BI – Superstore](power-bi/superstore-analysis/README.md). Their analysis, methods and results are not yet available for review here.
+The project guides document supported findings and known limitations. Original files are preserved, including saved notebook outputs.
 
 ## Analytical Approach
 
@@ -42,8 +44,8 @@ The project guides distinguish implemented work from checks and evidence still n
 
 - Preparing for Junior Data Analyst and Data & BI Analyst opportunities in Germany.
 - Making SQL and Python work easier to review and reproduce.
-- Adding the existing NFL Python and Superstore files with supporting documentation.
-- Providing portfolio evidence for Power BI, DAX and Excel.
+- Validating NFL notebook assumptions and documenting Power BI measure formulas.
+- Adding Power BI screenshots and strengthening reproducibility and Excel evidence.
 
 ## Repository Navigation
 

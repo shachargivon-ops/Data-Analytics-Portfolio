@@ -9,3 +9,7 @@
 It shows supplier counts in the Northwind sample database and supports the [Northwind project guide](../python/northwind-analysis/README.md). The source notebook remains unchanged.
 
 For future assets, document the source project, metric definitions and report filters alongside each screenshot or export.
+
+## NFL charts
+
+`nfl-cell-77.png` and `nfl-cell-158.png` are unmodified saved outputs from the supplied NFL notebook. See the [NFL guide](../python/nfl-quarterback-analysis/README.md) for filters, metric definitions and limitations.

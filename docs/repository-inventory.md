@@ -47,3 +47,11 @@ Data-Analytics-Portfolio/
 The new project folders contain documentation entry points. NFL Python and Superstore are clearly marked as awaiting files. The source files are not duplicated, renamed or moved, preserving existing direct links. Older guide pages point to the current project READMEs.
 
 One original notebook chart is extracted unchanged into assets for convenient review. Future analysis files can be added to their project folders; any later relocation of existing sources should include a link migration plan.
+
+## Supplied files added after baseline inspection
+
+- NFL Python: original 198-cell notebook, 2,246-row/36-column dataset workbook and bilingual dictionary workbook, under `python/nfl-quarterback-analysis/`.
+- Power BI: original `.pbix.zip` package and extracted report-structure summary under `power-bi/superstore-analysis/`.
+- Assets: two unmodified saved NFL notebook charts.
+
+These additions supersede the baseline missing-file status above. Source files were copied without byte changes. No existing analysis was moved, renamed or deleted.
