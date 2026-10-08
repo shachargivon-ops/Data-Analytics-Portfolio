@@ -14,7 +14,7 @@ This portfolio brings together SQL analysis, database design, Python exploration
 | **SQL Business Analysis – WideWorldImporters** | Sales trends, customer and product analysis, and rule-based customer inactivity flags using joins, CTEs and window functions | [Project guide and SQL](sql/wideworldimporters-analysis/README.md) |
 | **NFL Quarterback Database – SQL Server** | Relational database design, table creation, keys and data-loading queries for player, team and season comparisons | [Project guide and SQL](sql/nfl-database/README.md) |
 | **NFL Quarterback Performance Analysis – Python** | Data preparation, career rankings, correlations and visualizations with pandas, NumPy, Matplotlib and Seaborn | [Project guide, notebook and data](python/nfl-quarterback-analysis/README.md) |
-| **Power BI – Superstore** | Seven report pages exploring sales, products, customers, regions, returns, shipping and growth | [Project guide and report](power-bi/superstore-analysis/README.md) |
+| **Power BI – Superstore** | Eight final report pages covering sales, products, customers, regions, returns, shipping, growth and Executive Summary & Key Insights | [Project guide and report](power-bi/superstore-analysis/README.md) |
 
 The NFL project's XLSX files provide input data and a data dictionary for the Python analysis.
 

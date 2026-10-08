@@ -58,4 +58,4 @@ These additions supersede the baseline missing-file status above. Source files w
 
 ## Current Power BI file and Python inputs
 
-The supplied direct `.pbix` is now the primary report download. Its definitions contain seven pages and 21 referenced measures. The earlier archive is retained but is not the current report. The two XLSX files belong to the Python project as input data and a dictionary; they are not evidence of Excel processing or analysis skills.
+The supplied direct `.pbix` is now the primary report download. The final approved report supplied on 2026-10-08 contains eight pages, including Executive Summary & Key Insights, and 45 referenced measure names. The previous primary PBIX is preserved in power-bi/superstore-analysis/archive/; the historical ZIP remains unchanged. See the project audit for hashes and evidence limits. The two XLSX files belong to the Python project as input data and a dictionary; they are not evidence of Excel processing or analysis skills.

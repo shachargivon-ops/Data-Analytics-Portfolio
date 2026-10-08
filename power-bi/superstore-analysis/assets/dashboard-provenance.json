@@ -1,0 +1,79 @@
+{
+  "source_pdf": "final-report.pdf",
+  "source_sha256": "2f1fcf0c17bc14516b2eae0f2119bb0ad5e2ef2b2b99980281558e9dc75fc10e",
+  "method": "PDFium render at 144 dpi; RGB PNG with lossless optimization; no crop, redraw or visual edits.",
+  "pages": [
+    {
+      "pdf_page": 1,
+      "file": "sales-overview.png",
+      "pixels": [
+        2952,
+        1692
+      ],
+      "sha256": "68d073e2a035abbdd9143b9481e1209c9cafef42bc73554c1f1ae3188ee60efc"
+    },
+    {
+      "pdf_page": 2,
+      "file": "product-analysis.png",
+      "pixels": [
+        2952,
+        1692
+      ],
+      "sha256": "23da13c0a9e123677647d776aadcf2e6da14219358dbb1aee6b50df72aaa1496"
+    },
+    {
+      "pdf_page": 3,
+      "file": "customer-analysis.png",
+      "pixels": [
+        2952,
+        1692
+      ],
+      "sha256": "5e222cff0b73b51d9836ba7b13d2d3d9c3c8637f4cce775c684edc5934f69c5d"
+    },
+    {
+      "pdf_page": 4,
+      "file": "regional-analysis.png",
+      "pixels": [
+        2952,
+        1692
+      ],
+      "sha256": "311246a8712d79c769a2e0439bc66ebc37c5356d9391e72001a5011605aa203a"
+    },
+    {
+      "pdf_page": 5,
+      "file": "shipping-operations.png",
+      "pixels": [
+        2952,
+        1692
+      ],
+      "sha256": "11e831e52ddeafe91017ee676e5de4d0453c7483d137ebc989e2920a712f3af3"
+    },
+    {
+      "pdf_page": 6,
+      "file": "returns-analysis.png",
+      "pixels": [
+        2952,
+        1692
+      ],
+      "sha256": "9f60c763ee220533b2795f3a005711f16ec0a59021db1856ecbfaeb633eb23eb"
+    },
+    {
+      "pdf_page": 7,
+      "file": "growth-trends.png",
+      "pixels": [
+        2952,
+        1692
+      ],
+      "sha256": "5e85e0c2b161cbd8954dbf4c1b00c6e958c163d2c8ed1399928dec8b99c96849"
+    },
+    {
+      "pdf_page": 8,
+      "file": "executive-summary.png",
+      "pixels": [
+        2952,
+        1692
+      ],
+      "sha256": "5db50b86e95296c8ffed1128b656af651784a5cc1cc2d3bda9aae98bdd748623"
+    }
+  ]
+}
