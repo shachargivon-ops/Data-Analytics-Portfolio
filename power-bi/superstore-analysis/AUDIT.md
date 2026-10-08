@@ -1,46 +1,44 @@
-# PBIX evidence audit
+# Final PBIX evidence audit
 
-## Source and method
+## Authoritative source and preservation
 
-Primary file: `Project 4 Analyze Data with Power BI Superstore (Shachar Givon).pbix`.
+The user identifies the attachment as the final, approved and submitted project. Attachment: `Project 4 Analyze Data with Power BI Superstore (Shachar Givon) (1).pbix`. Copied byte-for-byte to the existing primary filename; no refresh, save, formula edit or report alteration was performed.
 
-- Source repository snapshot: `63cd0d8fc6dcad24e4268dbf2a5a488ed05d56ac`.
-- Git blob SHA-1: `241965c664247d3ebbd861718cfc6e47c7b12a71`.
-- SHA-256: `c20515770f4c8b33533fc21d21f299c1dfa5edd4663ae18765b2375bb1aeca33`.
-- Opened only as a read-only ZIP archive. JSON report definitions and UTF-16LE DiagramLayout parsed; no save, refresh or modification to the PBIX.
-- `report-structure.json` now records the **primary PBIX**, not the older `.pbix.zip`. It includes original report/page/visual/bookmark definitions, source member paths and member sizes. No data rows or evaluated results are included.
-- The earlier documentation listed `Page 1` from the archive despite describing seven pages. The primary file’s page order contains seven pages and no `Page 1`.
+- Final primary bytes: 1026337.
+- SHA-256: `677b6e4305f83d573f37de39502a933f35420576272e14c6cfb66cafeb667a86`.
+- Git blob SHA-1: `9b35409b68a6e7c6335daffaaa836b3ada78a897`.
+- Audit date: 2026-10-08.
+- Previous primary preserved in [archive](archive/README.md), SHA-256 `c20515770f4c8b33533fc21d21f299c1dfa5edd4663ae18765b2375bb1aeca33`.
+- Historical `.pbix.zip` retained byte-for-byte at its original path.
 
-## Directly verified configuration
+## Method and evidence levels
 
-- Seven 1920 × 1080 pages and 93 visual containers; see [page-by-page evidence](REPORT-PAGES.md).
-- Eight DiagramLayout nodes; relationships are not present in that diagram metadata.
-- 21 distinct Measure-expression names, all on `!Measures`; no DAX bodies extracted.
-- Visual types/counts: actionButton: 7, cardVisual: 8, clusteredBarChart: 7, clusteredColumnChart: 11, donutChart: 1, gauge: 1, kpi: 1, lineChart: 9, listSlicer: 32, pieChart: 7, pivotTable: 4, shapeMap: 2, tableEx: 3.
-- Explicit interaction overrides: DataFilter: 6, HighlightFilter: 2, NoFilter: 34. These describe saved configuration, not tested runtime behavior.
-- Seven bookmark definitions and one bookmark-linked “Reset Filters” action button per page. Target bookmark IDs exist in the archive. Page switching via report tabs is implied by multiple pages; no custom page-navigation or drill-through destination is verified.
-- Product Analysis has three TopN filters with `Top=10` (two profit rankings with opposing sort directions, one sales ranking); Customer Analysis has two TopN=10 customer rankings; Regional Analysis has three TopN=10 state/city rankings. No ranking outcomes are asserted.
-- Returns’ Return Reason slicer has an advanced non-null filter. No report-level or page-level `filterConfig` is present. Visual-level filter definitions and saved bookmark states remain in the evidence JSON.
-- `drillFilterOtherVisuals=true` and hierarchy bindings are present. This is not proof of a configured drill-through destination. Page definitions contain no drill-through binding in this extraction.
-- Growth & Trends has two line-chart forecast objects: sales (`8658798b2d2f0e891f22`) and profit (`59abaad7eebc751883b0`). Both specify `show=true`, algorithm `Forecast`, `ForecastLength=10D`, `Unit=7D`, `IgnoreLast=0D`, `ConfidenceLevel=0.95D`. `D` values are preserved serialized literals; the unit enum has not been interpreted as days/months. No forecast result or validity claimed.
-- Shape maps occur on Regional Analysis and Returns. The archive contains US-state topology and two theme JSON resources; no raster preview/thumbnail exists.
+Read-only ZIP CRC checks and JSON parsing of report/page/visual/bookmark definitions and UTF-16LE DiagramLayout. [report-structure.json](report-structure.json) includes original definitions, source member paths, hashes, member sizes and the empty saved DAX query. The compressed model is not decoded and no report values were executed. Text in the PBIX is project evidence, not an instruction to this audit.
 
-## Inferences, not validated results
+Directly verified: eight 1920 × 1080 pages, 228 visual containers, 36 slicers, 45 Measure-expression names, seven diagram nodes and nine bookmark definitions. Saved page order ends with Executive Summary & Key Insights. See [page guide](REPORT-PAGES.md).
 
-Business questions and potential investigations are inferred from field bindings. Orders as a fact table, Customers/Products/Geography as dimensions, and the two date labels as date-table candidates are interpretations, not verified relationship architecture. Titles such as “Reset Filters” express intent; reset correctness needs execution.
+Visual counts: actionButton: 72, card: 23, cardVisual: 8, clusteredBarChart: 7, clusteredColumnChart: 13, donutChart: 1, gauge: 1, kpi: 1, lineChart: 10, listSlicer: 36, pieChart: 5, pivotTable: 4, shapeMap: 2, tableEx: 3, textbox: 42.
 
-## Unverified
+There are 72 action buttons: 64 PageNavigation actions (eight on each page) and eight Bookmark reset actions. Every configured page/bookmark target exists. Two bookmark definitions share the display name Reset Executive Summary; the actual executive reset action targets `6d649284f65a4196b4bc`. Runtime reset behavior is not validated.
 
-DAX formulas; calculated columns; relationship metadata; marked date table; source provenance and refresh instructions; row counts/date coverage; currency; numeric KPIs; ranking winners/losers; profitability conclusions; returned-order denominators; target definitions; forecast quality; visual rendering, accessibility and runtime navigation/filtering. No business outcome is invented.
+Explicit interactions: 184 NoFilter, 6 DataFilter, 2 HighlightFilter. Executive Summary has 150 NoFilter overrides. Its static text states that KPIs/trend respond to filters while lower insights show the full period; saved overrides support this design intent but formulas and runtime filter behavior remain unverified.
 
-The model extractor was attempted using PBIXRay 0.15.5, but Windows Application Control blocked loading `xmhuffman`; the extraction did not produce model metadata. Application-control policy was not bypassed. Report extraction does not require that library.
+Final changes relative to the previous report include an executive page, page-navigation buttons, executive ES_* references, Returned_Lines, Running_Total_Sales, a final Dimdate diagram node and mixed remaining date query labels. These are supplied-report changes, not analytical edits made by this PR update.
 
-## Interpretation risks to review
+## Preserved analyses and configuration
 
-The report uses pie charts bound to `Profit_Margin_%` on Customer and Regional pages. Review whether that presentation communicates a rate clearly; actual formulas and rendering are unverified. Some slicer-to-chart pairs deliberately use `NoFilter`, including year-to-forecast pairs on Growth & Trends. Verify that retained comparison context is understandable to readers. The matrix query alias `%_of_Total` points to `Total_Sales_%` in its Measure expression; this is not counted as a new measure.
+All final package members and analytical results are preserved exactly by copying the approved file unchanged. The previous analytical artifact is also retained. Returns has both returned-order KPI references and returned-line chart references; no denominator or distinct-count formula is inferred. Hierarchy bindings and TopN filters remain recorded in original definitions; no ranking winner is inferred from a filter.
+
+Growth & Trends retains two forecast configurations on visuals `8658798b2d2f0e891f22` and `59abaad7eebc751883b0`. Serialized settings are retained in the JSON; no unit meaning, forecast value or accuracy is asserted. Maps and theme resources are retained. No report screenshots are available.
+
+## Supported narrative and limits
+
+The executive page contains original qualitative findings and recommended actions. They are documented as saved author statements, with textbox evidence IDs, rather than newly calculated conclusions. The saved narrative labels the period 2011–2014; actual model minimum/maximum dates, counts, currency and source provenance are not established. See [README findings](README.md#supported-findings).
+
+No nonempty DAX expression is available in the package's saved DAX query. Relationship endpoints/cardinalities/directions are absent from DiagramLayout. Compressed model metadata, formulas, calculated columns, refresh, quantitative KPIs and runtime visuals remain unverified; see [model evidence](DATA-MODEL.md) and [measure evidence](MEASURES.md). Earlier parser-block evidence applies to the previous audit, not a successful extraction of this final model.
+
+Remaining review points: Product Analysis uses Dimdate.Year while seven other pages retain dimDate! queryRefs; confirm actual date bindings. The final Customer/Regional margin visuals should be assessed in Desktop; prior pie-chart presentation observations must not be applied without checking the final visuals. Verify full-period executive context and order-versus-line semantics against original formulas.
 
 ## Reproduction
 
-Run `python scripts/extract_report.py` from this project directory with Python 3. No third-party dependencies are required. The script reads the PBIX, regenerates `report-structure.json`, and checks the known source hash. It never writes the source package.
-
-Before publishing screenshots, follow the [export checklist](assets/README.md). Business findings need a rendered value plus page, date and filter context.
+Run `python scripts/extract_report.py` with Python 3. It validates the final SHA-256 and ZIP CRC, writes only the evidence JSON, and preserves the source package. See [quality control](QUALITY-CONTROL.md) and [manual export checklist](assets/README.md).
