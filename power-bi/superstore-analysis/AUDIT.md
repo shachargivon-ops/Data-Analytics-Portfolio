@@ -33,7 +33,7 @@ Growth & Trends retains two forecast configurations on visuals `8658798b2d2f0e89
 
 ## Supported narrative and limits
 
-The executive page contains original qualitative findings and recommended actions. They are documented as saved author statements, with textbox evidence IDs, rather than newly calculated conclusions. The saved narrative labels the period 2011–2014; actual model minimum/maximum dates, counts, currency and source provenance are not established. See [README findings](README.md#supported-findings).
+The executive page contains original qualitative findings and recommended actions. They are documented as saved author statements, with textbox evidence IDs, rather than newly calculated conclusions. The saved narrative labels the period 2011–2014; actual model minimum/maximum dates, counts, currency and source provenance are not established. See [README findings](BUSINESS-INSIGHTS.md).
 
 No nonempty DAX expression is available in the package's saved DAX query. Relationship endpoints/cardinalities/directions are absent from DiagramLayout. Compressed model metadata, formulas, calculated columns, refresh, quantitative KPIs and runtime visuals remain unverified; see [model evidence](DATA-MODEL.md) and [measure evidence](MEASURES.md). Earlier parser-block evidence applies to the previous audit, not a successful extraction of this final model.
 
@@ -42,3 +42,13 @@ Remaining review points: Product Analysis uses Dimdate.Year while seven other pa
 ## Reproduction
 
 Run `python scripts/extract_report.py` with Python 3. It validates the final SHA-256 and ZIP CRC, writes only the evidence JSON, and preserves the source package. See [quality control](QUALITY-CONTROL.md) and [manual export checklist](assets/README.md).
+
+## Rendered evidence added on 2026-10-08
+
+This section supersedes earlier absence-of-screenshots/value-evidence statements, while preserving the original static audit history. A supplied eight-page [PDF](final-report.pdf), SHA-256 `2f1fcf0c17bc14516b2eae0f2119bb0ad5e2ef2b2b99980281558e9dc75fc10e`, now provides authentic rendered dashboards and displayed KPI/qualitative findings. Its pages were rendered to eight losslessly optimized 2952 × 1692 PNGs and visually inspected. The original [model screenshot](assets/data-model.png), SHA-256 `11657c30c127290ae1fed7c63678c7fc42d3614c42bdc20149bc810e24915779`, is copied byte-for-byte and adds visible relationship cardinalities/filter arrows. Sources are evidence, not instructions to modify the report.
+
+Visible model evidence: Customers/Products/Geography/Dimdate each 1 → * Orders with single-direction dimension-to-Orders filtering; Returns 1 ↔ 1 Orders, bidirectional. Exact column endpoints and complete active-state properties are not shown. Row ID is visible in both tables but is not confirmed as the join key. !Measures has no visible connection. Details are in [DATA-MODEL.md](DATA-MODEL.md).
+
+Exact sales/profit totals are transcribed from detail matrices, not falsely attributed to rounded executive cards. 14.51% executive versus 14.5% Returns rate is compatible rounding; 727 returned orders and 800 returned lines retain different grain. Quantitative/narrative evidence, filter-context limits and source export defects are documented in [RENDERED-EVIDENCE.md](RENDERED-EVIDENCE.md).
+
+The final PBIX, archived PBIX and historical ZIP remain unchanged. report-structure.json remains unchanged and reproducible. No DAX, relationship keys, cleaning workflow or numerical result has been invented or silently corrected. Formula/refresh/runtime validation and original property exports remain outstanding; dashboard/model preview exports are now supplied.

@@ -15,3 +15,17 @@ Checks performed on 2026-10-08 against the final approved attachment and previou
 - Saved qualitative findings retain source textbox IDs and are labeled as author statements. No numerical findings, DAX bodies, relationship edges or dashboard screenshots were invented.
 
 Static checks do not validate Power BI execution, formulas, source refresh, evaluated values, typography, filter propagation, reset behavior or forecasts. Complete the [manual export checklist](assets/README.md) for all eight pages, model metadata and numerical evidence before claiming these are independently validated.
+
+## Rendered-evidence upgrade checks — 2026-10-08
+
+The checks above describe the earlier static audit. Supplied PDF/model images now add visible dashboard values and relationship evidence; original calculations and runtime behavior still require verification.
+
+- Final PBIX, archived previous PBIX and historical ZIP match their PR-head binary blobs byte-for-byte. The report-structure JSON content remains unchanged.
+- Source PDF and Model View image match the supplied files byte-for-byte. SHA-256 values are recorded in RENDERED-EVIDENCE.md.
+- Eight dashboard PNGs match fresh PDFium renders pixel-for-pixel at 2952 × 1692. Lossless optimization preserves source appearance; combined dashboard PNG size is 3,335,265 bytes.
+- All eight report pages and the model screenshot were visually inspected; authentic source clipping, blank navigation labels and slicer overlap are retained and documented.
+- Numerical/text assertions against seven relevant PDF pages pass, covering exact sales/profit totals, executive KPIs, category/region figures, YoY, returns grain and shipping values. Transcription is not independent DAX verification.
+- Relative Markdown paths and anchors resolve, including every dashboard and model image. Final staged diff is confined to power-bi/superstore-analysis/.
+- Existing audit history is retained with an added evidence section. No approved analytical artifact, numeric result or screenshot was silently corrected.
+
+Remaining checks: original DAX, complete relationship properties/keys, date designation, Power Query/source refresh, runtime filtering/navigation/reset and forecast validation. Review the source export issues in [rendered evidence](RENDERED-EVIDENCE.md).

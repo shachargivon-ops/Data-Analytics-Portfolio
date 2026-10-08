@@ -1,20 +1,23 @@
-# Manual Power BI export checklist
+# Authentic dashboard and model assets
 
-Open a working copy of the final primary PBIX. Preserve the approved original. Export genuine screenshots or a PDF of all eight pages, with readable labels, completed rendering, export date, slicer state, units and time window. The PBIX supplies themes and topology but no raster dashboard preview; no screenshot has been fabricated.
+All eight dashboard PNGs are direct, unmodified renders of the [supplied final PDF](../final-report.pdf) at 144 dpi, 2952 × 1692 pixels. Lossless PNG optimization preserves every rendered pixel. Executive Summary is shown first in documentation while remaining the eighth original page.
 
-| Saved order | Page | Suggested screenshot filename |
-| --- | --- | --- |
-| 1 | Sales Overview | `sales-overview.png` |
-| 2 | Product Analysis | `product-analysis.png` |
-| 3 | Customer Analysis | `customer-analysis.png` |
-| 4 | Regional Analysis | `regional-analysis.png` |
-| 5 | Shipping & Operations | `shipping-operations.png` |
-| 6 | Returns | `returns.png` |
-| 7 | Growth & Trends | `growth-trends.png` |
-| 8 | Executive Summary & Key Insights | `executive-summary-key-insights.png` |
+| Original PDF page | Dashboard PNG |
+| --- | --- |
+| 8 | [executive-summary.png](executive-summary.png) |
+| 1 | [sales-overview.png](sales-overview.png) |
+| 2 | [product-analysis.png](product-analysis.png) |
+| 3 | [customer-analysis.png](customer-analysis.png) |
+| 4 | [regional-analysis.png](regional-analysis.png) |
+| 5 | [shipping-operations.png](shipping-operations.png) |
+| 6 | [returns-analysis.png](returns-analysis.png) |
+| 7 | [growth-trends.png](growth-trends.png) |
+| Model View | [data-model.png](data-model.png), original user screenshot copied unchanged |
 
-These are planned filenames, not existing images. Capture Executive Summary both at the intended full-period baseline and a filtered comparison; verify that KPIs/trend respond while the lower full-period insight cards retain their context. Confirm order-versus-line return visuals and the actual return-rate denominator.
+Source PDF SHA-256: `2f1fcf0c17bc14516b2eae0f2119bb0ad5e2ef2b2b99980281558e9dc75fc10e`. Model screenshot SHA-256: `11657c30c127290ae1fed7c63678c7fc42d3614c42bdc20149bc810e24915779`. [Dashboard provenance](dashboard-provenance.json) records page mapping, dimensions and PNG hashes. [PDF renderer](../scripts/extract_pdf_pages.py) checks the source hash and saved pixel equality; it requires pypdfium2/Pillow. No generated, retouched or recreated dashboards are included. [table-inventory.svg](table-inventory.svg) remains a labeled metadata illustration, not a screenshot.
 
-Export Model view with legible endpoints/cardinalities and relationship-properties evidence. Export original measures, calculated columns, formats and relationships via a supported metadata/TMDL/PBIP export. Resolve Dimdate versus dimDate! query labels. Test all page navigation and reset bookmarks, refresh/source paths and both forecast configurations.
+## Remaining manual evidence
 
-For any numerical finding, record metric, value, units, date range, all filters, source page and a screenshot or trusted evaluated data export. Verify the saved qualitative takeaways against those results before presenting them as independently validated findings.
+Dashboard pages and Model View are now available. Export original DAX/calculated columns, full relationship endpoints/properties, date-table designation, data types, Power Query steps and source/refresh instructions. Verify blank YoY cards, date aliases, target-gauge scaling, reset/navigation behavior, executive full-period context, order/line return denominators and forecast settings in Desktop. Re-export source layout issues if a future approved revision fixes them; preserve this approved report and current authentic exports.
+
+Original export timestamp and hidden filter-pane state were not supplied. [Rendered evidence](../RENDERED-EVIDENCE.md) records the visible context, rounding and defects; use evaluated baseline/filtered comparisons to establish formula correctness.

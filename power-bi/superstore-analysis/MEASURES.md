@@ -59,3 +59,22 @@ The final report's actual Measure expression references `Running_Total_Sales` (t
 Average Discount and standalone Shipping Days definitions are not verified. The executive footer states that returned orders count unique Order IDs while returned-line charts retain line detail; this intent does not verify the original DAX denominator or distinct-count implementation. Export original formulas and formats from Desktop/TMDL/PBIP before documenting them.
 
 Evidence: [full source definitions](report-structure.json), [page guide](REPORT-PAGES.md).
+
+## Supporting evidence added on 2026-10-08
+
+The original model screenshot adds visible names `Average_Discount` and `Average_Sales` in !Measures, beyond the 45 names referenced by final report visuals. Their formulas and values are not visible; they are not added to the visual-expression count. Other visible names match Average_Order_Value and Average_Sales_per_Customer.
+
+The supplied PDF now establishes displayed KPI values and analytical purposes, including prior-year/YoY/cumulative reporting, sales/profit/margin, customers/orders, shipping duration and order-versus-line returns. [Rendered KPI provenance](RENDERED-EVIDENCE.md) supplies values; [business insights](BUSINESS-INSIGHTS.md) supplies interpretations. The earlier statements that no rendered values were available describe the previous audit stage. DAX bodies, formats, denominator implementation and context-removal expressions remain unverified. The empty DAX query and compressed model extraction status are unchanged.
+
+| Referenced family | Analytical purpose demonstrated in the PDF |
+| --- | --- |
+| Total_Sales, Total_Profit, Profit_Margin_%, Total_Quantity, Total_Sales_% | Revenue, profit, margin, quantity and contribution comparisons |
+| Count_Orders, Count_Customers, Average_Order_Value, Average_Sales_per_Customer, Orders_per_Customer | Order/customer activity and average economics |
+| Sales_Previous_Year, Sales_YoY_%, Running_Total_Sales | Prior-year comparison, annual growth and cumulative sales |
+| Sales_Target, Sales_Gauge_Max | Target comparison and gauge scaling; definitions need review |
+| Average_Shipping_Days, Count_Orders_% | Shipping-duration and order-share comparison; duration chart labeled line-weighted |
+| Returned_Orders, Returned_Lines | Separate order-level KPI and line-level breakdowns |
+| Returned_Sales, Returned_Sales_%, Return_Rate_% | Returned-sales value/share and order return-rate reporting |
+| ES_* | Executive KPI/context cards for sales, profit, margin, customers/orders, category/region contributions, growth and returns |
+
+This table documents displayed analytical purpose, not formula semantics. Screenshot-only Average_Discount and Average_Sales have names/icons but no visible formula or rendered metric in this evidence set.
